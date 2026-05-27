@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jesús Command Center</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --rojo: #dc2626;
+      --rojo-bg: rgba(220,38,38,0.07);
+      --rojo-border: rgba(220,38,38,0.25);
+      --amarillo: #d97706;
+      --amarillo-bg: rgba(217,119,6,0.08);
+      --amarillo-border: rgba(217,119,6,0.3);
+      --verde: #16a34a;
+      --verde-bg: rgba(22,163,74,0.08);
+      --verde-border: rgba(22,163,74,0.3);
+      --azul: #2563eb;
+      --morado: #7c3aed;
+      --gris-bg: rgba(100,116,139,0.07);
+      --gris-border: rgba(100,116,139,0.2);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 3rem;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .header-left {}
+    .header-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .header-title span { color: var(--text); }
+    .header-date {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+    .header-actions { display: flex; gap: 0.5rem; align-items: center; }
+    .btn {
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.04em;
+    }
+    .btn:hover { color: var(--text); border-color: #94a3b8; }
+    .btn-sync { border-color: rgba(37,99,235,0.35); color: var(--azul); }
+    .btn-sync:hover { border-color: var(--azul); background: rgba(37,99,235,0.06); color: var(--azul); }
+    .btn-domingo { border-color: rgba(124,58,237,0.35); color: var(--morado); }
+    .btn-domingo:hover { border-color: var(--morado); background: rgba(124,58,237,0.06); color: var(--morado); }
+
+    /* ── HOY BLOCK ── */
+    .hoy-block {
+      margin: 1rem 1.5rem 0.75rem;
+      padding: 0.9rem 1.1rem;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+    .hoy-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--azul);
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+    .hoy-text {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.35;
+    }
+    .hoy-razon {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+      line-height: 1.4;
+    }
+
+    /* ── INCOHERENCE ALERT ── */
+    .incoherence-alert {
+      margin: 0 1.5rem 0.75rem;
+      padding: 0.65rem 1rem;
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: #fca5a5;
+      line-height: 1.4;
+      display: none;
+    }
+    .incoherence-alert.active { display: block; }
+
+    /* ── HEMISPHERES ── */
+    .hemispheres {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 0 1.5rem;
+    }
+    @media (max-width: 780px) {
+      .hemispheres { grid-template-columns: 1fr; }
+    }
+
+    .hemisphere {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .hemisphere-header {
+      padding: 0.9rem 1.1rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hemisphere-name {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+    .hemisphere-score {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+    }
+    .hemisphere-pct {
+      font-size: 1.9rem;
+      font-weight: 800;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    .hemisphere-pct-label { font-size: 0.75rem; color: var(--text-muted); }
+    .semaforo-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-left: 0.4rem;
+      display: inline-block;
+    }
+
+    /* ── CARDS GRID ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .card {
+      padding: 0.9rem 1rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.12s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover { background: var(--bg-card-hover); }
+    .card.full-width { grid-column: span 2; border-right: none; }
+    .cards-grid .card:nth-child(even):not(.full-width) { border-right: none; }
+    .card:last-child,
+    .card.full-width { border-bottom: none; }
+    /* Remove bottom border from second-to-last if even total */
+    .cards-grid.count-4 .card:nth-child(3),
+    .cards-grid.count-4 .card:nth-child(4) { border-bottom: none; }
+
+    .card-name {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+    .card-value {
+      display: flex;
+      align-items: baseline;
+      gap: 0.2rem;
+      margin-bottom: 0.4rem;
+    }
+    .card-pct {
+      font-size: 1.65rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .card-pct-label { font-size: 0.7rem; color: var(--text-muted); }
+    .card-trend { font-size: 0.9rem; margin-left: 0.15rem; }
+
+    /* Semáforo badge */
+    .semaforo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.18rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.4rem;
+    }
+    .semaforo-badge.verde  { background: var(--verde-bg);   color: var(--verde);   border: 1px solid var(--verde-border); }
+    .semaforo-badge.amarillo { background: var(--amarillo-bg); color: var(--amarillo); border: 1px solid var(--amarillo-border); }
+    .semaforo-badge.rojo   { background: var(--rojo-bg);    color: var(--rojo);    border: 1px solid var(--rojo-border); }
+    .semaforo-badge.gris   { background: var(--gris-bg);    color: var(--text-muted); border: 1px solid var(--gris-border); }
+
+    /* Card pct color */
+    .card.verde   .card-pct { color: var(--verde); }
+    .card.amarillo .card-pct { color: var(--amarillo); }
+    .card.rojo    .card-pct { color: var(--rojo); }
+    .card.gris    .card-pct { color: var(--text-muted); }
+
+    /* Sparkline */
+    .sparkline {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 20px;
+      margin-bottom: 0.45rem;
+    }
+    .spark-bar {
+      flex: 1;
+      border-radius: 2px;
+      min-height: 3px;
+      transition: height 0.3s;
+    }
+
+    /* Next action */
+    .card-action {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+      border-top: 1px solid var(--border);
+      padding-top: 0.45rem;
+      margin-top: 0.2rem;
+    }
+    .card-action strong { color: var(--text); font-weight: 600; }
+
+    /* Updated */
+    .card-updated {
+      font-size: 0.6rem;
+      color: #475569;
+      margin-top: 0.35rem;
+    }
+    .card-updated.stale { color: var(--amarillo); }
+
+    /* Stale overlay */
+    .stale-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15,23,42,0.82);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--amarillo);
+      font-weight: 700;
+      text-align: center;
+      padding: 0.75rem;
+      gap: 0.2rem;
+      z-index: 2;
+    }
+    .stale-overlay span { font-size: 0.6rem; font-weight: 400; color: var(--text-muted); }
+
+    /* ── 3 ACCIONES CLAUDE ── */
+    .footer-actions {
+      margin: 1rem 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .footer-header {
+      padding: 0.7rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .action-item {
+      padding: 0.85rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .action-item:last-child { border-bottom: none; }
+    .action-num {
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1.4;
+      min-width: 1.25rem;
+    }
+    .action-num.uno { color: var(--azul); }
+    .action-num.dos { color: var(--amarillo); }
+    .action-num.tres { color: var(--text-muted); }
+    .action-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+    .action-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+    .action-time {
+      font-size: 0.68rem;
+      color: #475569;
+      margin-top: 0.3rem;
+    }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      margin: 0 1.5rem;
+      padding: 0.9rem 1.1rem;
+      background: rgba(100,116,139,0.06);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .disclaimer strong { color: var(--text-muted); display: block; margin-bottom: 0.2rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── MODALS ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    }
+    .modal-header {
+      padding: 1.1rem 1.4rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 1;
+    }
+    .modal-title { font-size: 1rem; font-weight: 700; }
+    .modal-close {
+      background: none; border: none;
+      color: var(--text-muted); font-size: 1.25rem;
+      cursor: pointer; line-height: 1; padding: 0.2rem;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-body { padding: 1.25rem 1.4rem; }
+
+    .detail-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+      padding: 0.65rem 0.85rem;
+      background: rgba(100,116,139,0.08);
+      border-radius: 8px;
+      border-left: 3px solid var(--border);
+    }
+    .detail-value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .progress-bar-container {
+      background: var(--border);
+      border-radius: 999px;
+      height: 5px;
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.6s ease;
+    }
+    .progress-bar-fill.verde { background: var(--verde); }
+    .progress-bar-fill.amarillo { background: var(--amarillo); }
+    .progress-bar-fill.rojo { background: var(--rojo); }
+
+    .subtasks-title {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+    .subtask {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .subtask:last-child { border-bottom: none; }
+    .subtask-check {
+      width: 18px; height: 18px;
+      border-radius: 4px;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700;
+    }
+    .subtask-check.done     { background: var(--verde);       border-color: var(--verde);       color: #fff; }
+    .subtask-check.progress { background: var(--amarillo-bg); border-color: var(--amarillo);    color: var(--amarillo); }
+    .subtask-text { flex: 1; font-size: 0.82rem; line-height: 1.3; }
+    .subtask-text.done { text-decoration: line-through; color: var(--text-muted); }
+    .subtask-text.progress { color: var(--text); }
+    .subtask-peso {
+      font-size: 0.65rem;
+      color: #475569;
+      background: rgba(100,116,139,0.12);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    .detail-kv {
+      background: rgba(100,116,139,0.06);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+    }
+    .detail-kv-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+    }
+    .detail-kv-row:last-child { border-bottom: none; }
+    .detail-kv-key { color: var(--text-muted); }
+    .detail-kv-val { font-weight: 600; }
+
+    .next-action-block {
+      margin-top: 1.25rem;
+      padding: 0.75rem 0.9rem;
+      background: rgba(59,130,246,0.07);
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+    .next-action-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--azul);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Modo Domingo */
+    .domingo-step {
+      padding: 0.85rem 1rem;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 0.65rem;
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--azul);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 800;
+      flex-shrink: 0; color: #fff;
+    }
+    .step-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .step-desc  { font-size: 0.77rem; color: var(--text-muted); line-height: 1.4; }
+    .step-check { margin-top: 0.5rem; display: flex; align-items: center; gap: 0.45rem; }
+    .step-check input[type="checkbox"] { width: 15px; height: 15px; cursor: pointer; accent-color: var(--verde); }
+    .step-check label { font-size: 0.75rem; color: var(--text-muted); cursor: pointer; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: #f1f5f9 !important;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.78rem;
+      color: var(--text);
+      z-index: 300;
+      white-space: nowrap;
+      animation: fadeUp 0.2s ease;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .syncing { display: inline-block; animation: spin 0.8s linear infinite; }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .header { padding: 0.7rem 1rem; }
+      .hoy-block, .footer-actions, .disclaimer { margin-left: 1rem; margin-right: 1rem; }
+      .hemispheres { padding: 0 1rem; gap: 0.75rem; }
+      .hemisphere-pct { font-size: 1.5rem; }
+      .card-pct { font-size: 1.35rem; }
+    }
+
+    /* ── TAB BAR ── */
+    .tab-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0;
+    }
+    .tab-btn {
+      padding: 0.65rem 1.1rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--azul); border-bottom-color: var(--azul); }
+
+    /* ── EOS LAYOUT ── */
+    .eos-wrap { padding: 1.25rem 1.5rem; }
+    @media(max-width:480px){ .eos-wrap{ padding:1rem; } }
+
+    .eos-subnav {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .eos-sub-btn {
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+    .eos-sub-btn:hover { border-color: var(--azul); color: var(--azul); }
+    .eos-sub-btn.active { background: var(--azul); border-color: var(--azul); color: #fff; }
+
+    /* EOS score banner */
+    .eos-banner {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      flex-wrap: wrap;
+    }
+    .eos-score-big { font-size: 2.5rem; font-weight: 800; color: var(--amarillo); line-height: 1; }
+    .eos-score-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .eos-score-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; max-width: 400px; }
+
+    /* Panel card */
+    .eos-panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      margin-bottom: 1.25rem;
+    }
+    .eos-panel-header {
+      padding: 0.8rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+    }
+    .eos-panel-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text);
+    }
+    .eos-panel-subtitle { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ── SCORECARD ── */
+    .scorecard-wrap { overflow-x: auto; }
+    .scorecard-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.75rem;
+      min-width: 900px;
+    }
+    .scorecard-table th {
+      padding: 0.5rem 0.6rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+      background: #f8fafc;
+    }
+    .scorecard-table th.col-label { text-align: left; min-width: 160px; }
+    .scorecard-table th.col-who   { min-width: 60px; }
+    .scorecard-table th.col-goal  { min-width: 70px; }
+    .scorecard-table th.col-week  { min-width: 68px; }
+    .scorecard-table td {
+      padding: 0.45rem 0.6rem;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid #f1f5f9;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .scorecard-table td.td-label {
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.77rem;
+      color: var(--text);
+      padding-left: 1rem;
+    }
+    .scorecard-table td.td-who { color: var(--text-muted); font-size: 0.72rem; }
+    .scorecard-table td.td-goal { font-weight: 700; color: var(--azul); font-size: 0.77rem; }
+    .scorecard-table tr:last-child td { border-bottom: none; }
+    .sc-cell {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem;
+      border-radius: 3px;
+      color: var(--text);
+      min-width: 50px;
+    }
+    .sc-cell:focus { background: #eff6ff; outline: 1px solid var(--azul); }
+    .cell-green { background: rgba(22,163,74,0.1); }
+    .cell-red   { background: rgba(220,38,38,0.09); }
+    .cell-green .sc-cell { color: var(--verde); }
+    .cell-red   .sc-cell { color: var(--rojo); }
+    .cell-empty .sc-cell { color: #cbd5e1; }
+    .th-current { background: rgba(37,99,235,0.07) !important; color: var(--azul) !important; }
+
+    /* ── ROCKS ── */
+    .rock-card {
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .rock-card:last-child { border-bottom: none; }
+    .rock-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--azul);
+      color: #fff;
+      font-size: 0.75rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .rock-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .rock-meta  { font-size: 0.75rem; color: var(--text-muted); display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .rock-notes { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.35rem; font-style: italic; }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 20px;
+      font-size: 0.68rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .status-pill.on-track  { background: var(--verde-bg);   color: var(--verde);   border: 1px solid var(--verde-border); }
+    .status-pill.off-track { background: var(--rojo-bg);    color: var(--rojo);    border: 1px solid var(--rojo-border); }
+    .status-pill.done      { background: var(--gris-bg);    color: var(--text-muted); border: 1px solid var(--gris-border); }
+
+    /* ── ISSUES ── */
+    .issue-row {
+      padding: 0.85rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+    .issue-row:last-child { border-bottom: none; }
+    .priority-badge {
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.65rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+    }
+    .priority-badge.alta  { background: var(--rojo-bg);    color: var(--rojo);    border: 1px solid var(--rojo-border); }
+    .priority-badge.media { background: var(--amarillo-bg); color: var(--amarillo); border: 1px solid var(--amarillo-border); }
+    .priority-badge.baja  { background: var(--gris-bg);    color: var(--text-muted); border: 1px solid var(--gris-border); }
+    .issue-desc { font-size: 0.85rem; font-weight: 600; flex: 1; }
+    .issue-meta { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .issue-status {
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.65rem; font-weight: 700;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+      background: #f8fafc;
+    }
+    .issue-status.en-proceso { color: var(--azul); border-color: rgba(37,99,235,0.3); background: rgba(37,99,235,0.06); }
+    .issue-status.resuelto   { color: var(--verde); border-color: var(--verde-border); background: var(--verde-bg); }
+
+    /* ── VTO ── */
+    .vto-section { padding: 1rem 1.1rem; border-bottom: 1px solid var(--border); }
+    .vto-section:last-child { border-bottom: none; }
+    .vto-section-title {
+      font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.09em; color: var(--text-muted); margin-bottom: 0.65rem;
+    }
+    .vto-field { margin-bottom: 0.5rem; }
+    .vto-label { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+    .vto-value {
+      font-size: 0.85rem; font-weight: 600; line-height: 1.4;
+      padding: 0.45rem 0.65rem;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .vto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    @media(max-width:600px){ .vto-grid{ grid-template-columns:1fr; } }
+
+    /* ── ORG CHART ── */
+    .org-wrap { padding: 1.25rem; }
+    .org-tree { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .org-level { display: flex; justify-content: center; gap: 1rem; margin-bottom: 0; flex-wrap: wrap; }
+    .org-connector {
+      width: 2px; height: 24px; background: var(--border); margin: 0 auto;
+    }
+    .org-h-connector { display: flex; align-items: flex-start; position: relative; gap: 1rem; }
+    .org-node {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      min-width: 160px;
+      max-width: 200px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .org-node.top { border-color: var(--azul); border-width: 2px; }
+    .org-node.risk { border-color: var(--amarillo); }
+    .org-node.vacant { border-style: dashed; opacity: 0.6; }
+    .org-node-role { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 0.3rem; }
+    .org-node-name { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .org-node-resp { font-size: 0.7rem; color: var(--text-muted); line-height: 1.4; }
+    .org-node-flag {
+      display: inline-block; margin-top: 0.35rem;
+      font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+      padding: 0.1rem 0.4rem; border-radius: 3px;
+    }
+    .flag-risk    { background: var(--amarillo-bg); color: var(--amarillo); }
+    .flag-vacant  { background: var(--gris-bg);    color: var(--text-muted); }
+    .flag-claude  { background: rgba(37,99,235,0.08); color: var(--azul); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════ -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-title">JESÚS <span>COMMAND CENTER</span></div>
+    <div class="header-date" id="header-date">—</div>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-sync" onclick="syncDashboard()" id="sync-btn">⟳ SYNC</button>
+    <button class="btn btn-domingo" onclick="openDomingo()">☽ DOMINGO</button>
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('general')">🔭 Vista General</button>
+  <button class="tab-btn" onclick="switchTab('eos')">⚙️ EOS Dashboard</button>
+</div>
+
+<div id="tab-general">
+<!-- ═══════════════════════════════════════════
+     HOY
+════════════════════════════════════════════ -->
+<div class="hoy-block">
+  <div class="hoy-label">🎯 HOY</div>
+  <div>
+    <div class="hoy-text" id="hoy-texto">—</div>
+    <div class="hoy-razon" id="hoy-razon">—</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ALERTA DE INCOHERENCIA
+════════════════════════════════════════════ -->
+<div class="incoherence-alert" id="incoherence-alert">
+  ⚠️ <strong>Algo no cuadra:</strong> Kappa Operación lleva meses en progreso pero Kappa Finanzas sigue en rojo. Ejecutas bien pero el dinero no aparece. Revisar costos vs ingresos.
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HEMISFERIOS
+════════════════════════════════════════════ -->
+<div class="hemispheres">
+
+  <!-- NEGOCIO -->
+  <div class="hemisphere">
+    <div class="hemisphere-header">
+      <div class="hemisphere-name">💼 Negocio</div>
+      <div class="hemisphere-score">
+        <span class="hemisphere-pct" id="negocio-pct">—</span>
+        <span class="hemisphere-pct-label">%</span>
+        <span class="semaforo-dot" id="negocio-dot"></span>
+      </div>
+    </div>
+    <div class="cards-grid" id="negocio-grid"></div>
+  </div>
+
+  <!-- PERSONAL -->
+  <div class="hemisphere">
+    <div class="hemisphere-header">
+      <div class="hemisphere-name">👤 Personal</div>
+      <div class="hemisphere-score">
+        <span class="hemisphere-pct" id="personal-pct">—</span>
+        <span class="hemisphere-pct-label">%</span>
+        <span class="semaforo-dot" id="personal-dot"></span>
+      </div>
+    </div>
+    <div class="cards-grid" id="personal-grid"></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     3 ACCIONES CLAUDE
+════════════════════════════════════════════ -->
+<div class="footer-actions">
+  <div class="footer-header">⚡ 3 Acciones Claude — basadas en el estado actual</div>
+
+  <div class="action-item">
+    <div class="action-num uno">1</div>
+    <div>
+      <div class="action-title">OO pipeline — 1 discovery call antes del viernes 30</div>
+      <div class="action-desc">Amazon Relay ✅ aplicado. Trailer 0202 ✅ rentado. El cuello de botella ahora es el pipeline: 0 conversaciones activas con OOs. Leads del 24 de abril con 30+ días sin seguimiento. Mandar DMs hoy — Claude te escribe el script en 2 minutos.</div>
+      <div class="action-time">⏱ 20–30 min DMs · 1 h si hay call · Solo Jesús puede hacer esto</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-num dos">2</div>
+    <div>
+      <div class="action-title">Publicar 1 video esta semana — cerrar mayo con momentum</div>
+      <div class="action-desc">Ya llevas 2 videos en mayo. Publicar 1 más esta semana cierra el mes con 3 y activa el inbound para junio. Sin videos no hay DMs. Sin DMs no hay OOs. La cadena empieza aquí. Claude te genera el guion en sesión.</div>
+      <div class="action-time">⏱ 30 min grabar · Claude genera el guion ahora mismo</div>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-num tres">3</div>
+    <div>
+      <div class="action-title">Kit $37 — decisión binaria antes del miércoles</div>
+      <div class="action-desc">Semana 6 en "Not started". No es una tarea, es deuda de atención. Sí → Claude prepara el listing completo en sesión (2 h). No → sale del tablero hasta julio. El status quo no es una opción.</div>
+      <div class="action-time">⏱ 15 min para decidir · 2 h si la respuesta es sí</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     DISCLAIMER
+════════════════════════════════════════════ -->
+<div class="disclaimer">
+  <strong>Lo que este dashboard NO mide</strong>
+  Felicidad real · Calidad de relaciones · Creatividad · Paz mental momento a momento.<br>
+  Si descuidas esto, el dashboard puede decirte que estás bien cuando no lo estás.
+</div>
+
+</div><!-- /tab-general -->
+
+<!-- ═══════════════════════════════════════════
+     TAB EOS
+════════════════════════════════════════════ -->
+<div id="tab-eos" style="display:none;">
+<div class="eos-wrap">
+
+  <!-- EOS Score Banner -->
+  <div class="eos-banner">
+    <div style="flex-shrink:0;">
+      <div class="eos-score-label">EOS Score — Kappa Delivery</div>
+      <div class="eos-score-big">32%</div>
+      <div style="font-size:0.68rem;color:var(--text-muted);margin-top:0.2rem;">20 preguntas · escala 1–5</div>
+    </div>
+    <div class="eos-score-desc" style="flex:1;">
+      <strong style="color:var(--text);font-size:0.82rem;">"Please read on. This book will change your life."</strong> — rango 20–34% según Traction p.12<br>
+      <span style="font-size:0.75rem;">Sistema en etapa inicial. La mayoría de componentes identificados pero no sistematizados. Prioridad: Scorecard activo + Rocks + V/TO.</span>
+      <div style="margin-top:0.6rem; display:grid; grid-template-columns:1fr 1fr; gap:0.3rem 1rem; font-size:0.7rem; color:var(--text-muted);">
+        <span>📋 Visión documentada: <strong style="color:var(--rojo);">1/5</strong></span>
+        <span>🪨 Rocks definidos: <strong style="color:var(--amarillo);">2/5</strong></span>
+        <span>📊 Scorecard activo: <strong style="color:var(--rojo);">1/5</strong></span>
+        <span>👥 Accountability Chart: <strong style="color:var(--rojo);">1/5</strong></span>
+        <span>⚙️ Procesos documentados: <strong style="color:var(--rojo);">1/5</strong></span>
+        <span>🎯 Core Focus claro: <strong style="color:var(--amarillo);">3/5</strong></span>
+        <span>🤝 Confianza en equipo: <strong style="color:var(--verde);">4/5</strong></span>
+        <span>💰 Presupuesto monitoreado: <strong style="color:var(--amarillo);">2/5</strong></span>
+      </div>
+      <div style="margin-top:0.5rem;font-size:0.68rem;color:#94a3b8;">Score calculado con las 20 preguntas del Organizational Checkup — Traction pp.10–12 · Puntaje: 32/100</div>
+    </div>
+  </div>
+
+  <!-- SubNav EOS -->
+  <div class="eos-subnav">
+    <button class="eos-sub-btn active" onclick="switchEOS('scorecard')">📊 Scorecard</button>
+    <button class="eos-sub-btn" onclick="switchEOS('rocks')">🪨 Rocks Q2</button>
+    <button class="eos-sub-btn" onclick="switchEOS('issues')">⚠️ Issues</button>
+    <button class="eos-sub-btn" onclick="switchEOS('vto')">🧭 V/TO</button>
+    <button class="eos-sub-btn" onclick="switchEOS('org')">👥 Org Chart</button>
+  </div>
+
+  <!-- ── SCORECARD ── -->
+  <div id="eos-scorecard" class="eos-section">
+    <div class="eos-panel">
+      <div class="eos-panel-header">
+        <div>
+          <div class="eos-panel-title">Scorecard Semanal — Rolling 13 semanas</div>
+          <div class="eos-panel-subtitle">Edita cualquier celda · Se guarda automáticamente · Verde = cumple meta, Rojo = no cumple</div>
+        </div>
+      </div>
+      <div class="scorecard-wrap">
+        <table class="scorecard-table" id="scorecard-table"></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ROCKS ── -->
+  <div id="eos-rocks" class="eos-section" style="display:none;">
+    <div class="eos-panel">
+      <div class="eos-panel-header">
+        <div>
+          <div class="eos-panel-title">Rocks — Q2 2026 (Apr–Jun)</div>
+          <div class="eos-panel-subtitle">3–7 prioridades críticas del trimestre · Revisión semanal</div>
+        </div>
+        <div class="eos-panel-subtitle" id="rocks-ontrack"></div>
+      </div>
+      <div id="rocks-list"></div>
+    </div>
+  </div>
+
+  <!-- ── ISSUES ── -->
+  <div id="eos-issues" class="eos-section" style="display:none;">
+    <div class="eos-panel">
+      <div class="eos-panel-header">
+        <div>
+          <div class="eos-panel-title">Issues List — IDS activo</div>
+          <div class="eos-panel-subtitle">Identify · Discuss · Solve · Ordenado por prioridad</div>
+        </div>
+      </div>
+      <div id="issues-list"></div>
+    </div>
+  </div>
+
+  <!-- ── VTO ── -->
+  <div id="eos-vto" class="eos-section" style="display:none;">
+    <div class="eos-panel">
+      <div class="eos-panel-header">
+        <div class="eos-panel-title">V/TO — Vision/Traction Organizer</div>
+        <div class="eos-panel-subtitle">Kappa Delivery LLC · v1 · 2026-05-26</div>
+      </div>
+      <div id="vto-content"></div>
+    </div>
+  </div>
+
+  <!-- ── ORG CHART ── -->
+  <div id="eos-org" class="eos-section" style="display:none;">
+    <div class="eos-panel">
+      <div class="eos-panel-header">
+        <div class="eos-panel-title">Accountability Chart — Kappa Delivery</div>
+        <div class="eos-panel-subtitle">⚠️ Jesús cubre 3 asientos — riesgo crítico de escalabilidad</div>
+      </div>
+      <div class="org-wrap" id="org-chart"></div>
+    </div>
+  </div>
+
+</div><!-- /eos-wrap -->
+</div><!-- /tab-eos -->
+
+<!-- ═══════════════════════════════════════════
+     MODAL — DETALLE DE ÁREA
+════════════════════════════════════════════ -->
+<div class="modal-overlay" id="card-modal" onclick="handleOverlayClick(event,'card-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">—</div>
+      <button class="modal-close" onclick="closeModal('card-modal')">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MODAL — MODO DOMINGO
+════════════════════════════════════════════ -->
+<div class="modal-overlay" id="domingo-modal" onclick="handleOverlayClick(event,'domingo-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">☽ Modo Domingo — Ritual Semanal</div>
+      <button class="modal-close" onclick="closeModal('domingo-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:1.25rem; line-height:1.5;">
+        30 minutos. Cada domingo en la noche. Sin este ritual el dashboard muere como el v1.
+      </p>
+      <div id="domingo-steps"></div>
+      <button class="btn" onclick="closeModal('domingo-modal')"
+        style="width:100%; padding:0.7rem; font-size:0.85rem; margin-top:1rem; border-color:var(--morado); color:var(--morado);">
+        ✓ Ritual completo — Cerrar
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+<script>
+// ────────────────────────────────────────────
+// DATA — Estado actual 2026-05-26
+// ────────────────────────────────────────────
+const DATA = {
+  lastSync: '2026-05-26',
+  hoy: {
+    texto: 'Mandar DMs de seguimiento a leads OO del 24 de abril — saber si alguien está vivo',
+    razon: 'Amazon Relay ✅ aplicado. El cuello de botella ahora es el pipeline: 0 conversaciones activas. Leads con 30+ días sin seguimiento. Claude te escribe el script ahora mismo.'
+  },
+  negocio: [
+    {
+      id: 'kappa-op',
+      nombre: 'Kappa — Operación',
+      tipo: 'proyecto',
+      valor: 23,
+      semaforo: 'rojo',
+      meta: '7 trailers todos en función — 3 camiones con chofer + 3 trailers rentados a OOs + 1 almacenaje',
+      tendencia: '↑',
+      ultimaActualizacion: '2026-05-26',
+      proximaAccion: 'Conseguir chofer para Truck 02 + Trailer 27-822 (actualmente Jesús lo maneja)',
+      historial: [14, 14, 14, 23],
+      subtareas: [
+        { texto: 'Truck 02 + Trailer 27-822 con chofer', peso: 5, estado: 'progreso' },
+        { texto: 'Truck 1117 + Trailer 1711 con chofer', peso: 5, estado: 'pendiente' },
+        { texto: 'Tercer camión adquirido y operacional con chofer', peso: 4, estado: 'pendiente' },
+        { texto: 'Dry van 0202 (Trailer 5-35) rentado ✅', peso: 3, estado: 'completado' },
+        { texto: 'Trailer rentado a OO #2', peso: 3, estado: 'pendiente' },
+        { texto: 'Trailer rentado a OO #3', peso: 3, estado: 'pendiente' },
+        { texto: 'Trailer almacenaje asignado', peso: 1, estado: 'pendiente' },
+      ]
+    },
+    {
+      id: 'kappa-fin',
+      nombre: 'Kappa — Finanzas',
+      tipo: 'semaforo',
+      valor: null,
+      semaforo: 'amarillo',
+      meta: 'Ingreso neto positivo con margen real — cashflow ≥ $9,500/mes netos',
+      tendencia: '→',
+      ultimaActualizacion: '2026-05-23',
+      proximaAccion: 'Cashflow actual ~$5,034/mes. Meta: $15,000. Brecha: $9,966. Colchón: $0 (meta $5k–$8k).',
+      historialSemaforo: ['rojo', 'rojo', 'amarillo', 'amarillo'],
+      detalle: {
+        'Ingresos/mes': '~$5,034',
+        'Ernesto (10% + seguro)': '~$2,534',
+        'Jesús (Truck 02)': '~$2,500 est.',
+        'Neto estimado': '~$200–$500',
+        'Colchón acumulado': '$0 (meta: $5,000–$8,000)',
+        'Sueldo Jesús': '$1,500/viernes (desde 19 mayo)',
+      }
+    },
+    {
+      id: 'oos',
+      nombre: 'OOs + Trailers Activos',
+      tipo: 'proyecto',
+      valor: 0,
+      semaforo: 'rojo',
+      meta: '5 OOs firmados y activos con equipo Kappa bajo autoridad Kappa',
+      tendencia: '→',
+      ultimaActualizacion: '2026-05-26',
+      proximaAccion: '0/5 OOs bajo autoridad Kappa. 0 conversaciones activas en pipeline. Leads del 24 abr sin seguimiento.',
+      historial: [0, 0, 0, 0],
+      subtareas: [
+        { texto: 'OO #1 firmado + activo bajo autoridad Kappa', peso: 5, estado: 'pendiente' },
+        { texto: 'OO #2 firmado + activo', peso: 5, estado: 'pendiente' },
+        { texto: 'OO #3 firmado + activo ← meta mínima verde', peso: 5, estado: 'pendiente' },
+        { texto: 'OO #4 firmado + activo', peso: 4, estado: 'pendiente' },
+        { texto: 'OO #5 firmado + activo ← meta óptima', peso: 4, estado: 'pendiente' },
+      ]
+    },
+    {
+      id: 'trucking-academy',
+      nombre: 'Trucking Academy',
+      tipo: 'proyecto',
+      valor: 43,
+      semaforo: 'amarillo',
+      meta: 'MVP lanzado + validación de mercado (3+ ventas) + números verdes',
+      tendencia: '↑',
+      ultimaActualizacion: '2026-05-26',
+      proximaAccion: 'Kit $37 en Gumroad listo. Decisión pendiente: ¿activar marketing o pausar hasta julio?',
+      historial: [0, 0, 10, 43],
+      subtareas: [
+        { texto: 'Definir el producto MVP (tema, formato, precio)', peso: 3, estado: 'completado' },
+        { texto: 'Construir el producto mínimo (9 documentos white-label)', peso: 4, estado: 'completado' },
+        { texto: 'Plataforma de venta activa (Gumroad $37)', peso: 3, estado: 'completado' },
+        { texto: 'Primera venta confirmada', peso: 4, estado: 'pendiente' },
+        { texto: '3+ ventas — validación de mercado real', peso: 4, estado: 'pendiente' },
+        { texto: 'Ingreso neto del producto en verde', peso: 5, estado: 'pendiente' },
+      ]
+    },
+    {
+      id: 'marca-personal',
+      nombre: 'Marca Personal',
+      tipo: 'semaforo',
+      valor: null,
+      semaforo: 'rojo',
+      meta: '3+ videos/semana publicados con DMs inbound llegando consistentemente',
+      tendencia: '↓',
+      ultimaActualizacion: '2026-05-26',
+      proximaAccion: '2 videos publicados en mayo. Meta: 3+/semana. Publicar 1 video esta semana para cerrar el mes con momentum.',
+      historialSemaforo: ['amarillo', 'rojo', 'rojo', 'amarillo'],
+      detalle: {
+        'Videos publicados (mayo)': '2 de 4–6 meta',
+        'DMs inbound esta semana': '0 confirmados',
+        'Leads OO activos': '0 conversaciones vivas',
+        'Última publicación': 'Mayo 2026',
+        'Plataformas': 'TikTok + Instagram Reels + YouTube Shorts',
+      }
+    },
+  ],
+  personal: [
+    {
+      id: 'fin-personal',
+      nombre: 'Finanzas Personales',
+      tipo: 'semaforo',
+      valor: null,
+      semaforo: 'amarillo',
+      meta: 'Ingresos > gastos con crecimiento mes a mes',
+      tendencia: '↑',
+      ultimaActualizacion: '2026-05-19',
+      proximaAccion: 'Sueldo $1,500/viernes establecido (KT-46 ✅). Primer mes de separación Kappa/personal.',
+      historialSemaforo: ['rojo', 'rojo', 'rojo', 'amarillo'],
+      detalle: {
+        'Sueldo fijo': '$1,500/viernes (desde 19 mayo)',
+        'Separación Kappa/personal': 'Completada (KT-46 ✅)',
+        'Gastos personales/mes': 'Por definir (separación reciente)',
+        'Tendencia': 'Primera semana estabilizada',
+      }
+    },
+    {
+      id: 'salud',
+      nombre: 'Salud Física + Mental',
+      tipo: 'habito',
+      valor: null,
+      semaforo: 'gris',
+      meta: 'Ejercicio o caminata 5+ días/semana · Meditación Isha Kriya diaria',
+      tendencia: '?',
+      ultimaActualizacion: null,
+      proximaAccion: 'Sin datos. Actualizar en el próximo Modo Domingo con días activos esta semana.',
+      historialSemaforo: [null, null, null, null],
+      detalle: {
+        'Días activos esta semana': '? de 7',
+        'Ejercicio diario (30 min)': '? días',
+        'Meditación Isha Kriya (10 min)': '? días',
+        'Fuente': 'Apple Health — actualizar manualmente',
+      }
+    },
+    {
+      id: 'legado',
+      nombre: 'Metas / Legado',
+      tipo: 'semaforo',
+      valor: null,
+      semaforo: 'gris',
+      meta: 'Acción concreta esta semana hacia una meta personal de largo plazo',
+      tendencia: '?',
+      ultimaActualizacion: null,
+      proximaAccion: 'Sin datos. Actualizar en el próximo Modo Domingo.',
+      historialSemaforo: [null, null, null, null],
+      detalle: {
+        'Meta 5 años': '50 trailers + 50 OOs + libertad financiera total + 3 hijos',
+        'Última acción concreta': 'Sin registrar',
+        'Frecuencia': 'Actualización semanal — ritual domingo',
+      }
+    },
+    {
+      id: 'aprendizaje',
+      nombre: 'Aprendizaje',
+      tipo: 'habito',
+      valor: null,
+      semaforo: 'gris',
+      meta: '1+ libro o audiolibro por semana (formato no importa)',
+      tendencia: '?',
+      ultimaActualizacion: null,
+      proximaAccion: 'Sin datos. ¿Qué estás escuchando esta semana? Actualizar en Modo Domingo.',
+      historialSemaforo: [null, null, null, null],
+      detalle: {
+        'Libro/audiolibro actual': 'Sin registrar',
+        'Progreso': '? %',
+        'Últimas 4 semanas': 'Sin datos',
+      }
+    },
+  ]
+};
+
+// ────────────────────────────────────────────
+// UTILS
+// ────────────────────────────────────────────
+const SEMAFORO_COLOR = { verde:'#22c55e', amarillo:'#f59e0b', rojo:'#ef4444', gris:'#475569' };
+const SEMAFORO_VALUE = { verde:100, amarillo:50, rojo:0, gris:null };
+
+function semColor(s)  { return SEMAFORO_COLOR[s] || SEMAFORO_COLOR.gris; }
+function semValue(s)  { return SEMAFORO_VALUE[s]; }
+function semClass(s)  { return s; }
+
+function daysOld(dateStr) {
+  if (!dateStr) return 999;
+  return Math.floor((Date.now() - new Date(dateStr)) / 86400000);
+}
+
+function fmtDate(dateStr) {
+  if (!dateStr) return 'Sin datos';
+  return new Date(dateStr).toLocaleDateString('es-ES', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function sparkColor(v, tipo) {
+  if (tipo === 'proyecto') {
+    if (v === null || v === undefined) return '#334155';
+    return v >= 70 ? '#22c55e' : v >= 40 ? '#f59e0b' : '#ef4444';
+  }
+  return SEMAFORO_COLOR[v] || '#334155';
+}
+
+function sparkHeight(v, tipo) {
+  if (tipo === 'proyecto') {
+    if (v === null || v === undefined) return 3;
+    return Math.max(3, Math.round((v / 100) * 20));
+  }
+  const map = { verde:20, amarillo:12, rojo:5, null:3, undefined:3 };
+  return map[v] ?? 3;
+}
+
+// ────────────────────────────────────────────
+// RENDER CARDS
+// ────────────────────────────────────────────
+function renderCard(area, idx, total) {
+  const isFullWidth = (total % 2 === 1) && (idx === total - 1);
+  const stale = daysOld(area.ultimaActualizacion) > 14;
+  const sc = semClass(area.semaforo);
+
+  // Value block
+  let valueHTML = '';
+  if (area.tipo === 'proyecto') {
+    const pct = area.valor ?? 0;
+    valueHTML = `
+      <div class="card-value">
+        <span class="card-pct">${pct}</span>
+        <span class="card-pct-label">%</span>
+        <span class="card-trend">${area.tendencia}</span>
+      </div>`;
+  } else {
+    const label = area.semaforo === 'gris' ? 'SIN DATOS' : area.semaforo.toUpperCase();
+    valueHTML = `
+      <div style="margin-bottom:0.4rem; display:flex; align-items:center; gap:0.35rem;">
+        <span class="semaforo-badge ${sc}">● ${label}</span>
+        <span style="font-size:0.85rem;">${area.tendencia}</span>
+      </div>`;
+  }
+
+  // Sparkline
+  const sparkData = area.tipo === 'proyecto' ? area.historial : (area.historialSemaforo || [null,null,null,null]);
+  let sparkHTML = '<div class="sparkline">';
+  sparkData.forEach(v => {
+    const h = sparkHeight(v, area.tipo);
+    const c = sparkColor(v, area.tipo);
+    sparkHTML += `<div class="spark-bar" style="height:${h}px;background:${c};"></div>`;
+  });
+  sparkHTML += '</div>';
+
+  // Stale overlay
+  const staleHTML = stale
+    ? `<div class="stale-overlay">📅 Datos viejos<span>¿Sigue siendo verdad?</span></div>`
+    : '';
+
+  // Updated
+  const updClass = stale ? 'stale' : '';
+  const updLabel = area.ultimaActualizacion ? `Act. ${fmtDate(area.ultimaActualizacion)}` : 'Sin actualización';
+
+  return `
+    <div class="card ${sc}${isFullWidth ? ' full-width' : ''}" onclick="openCard('${area.id}')">
+      ${staleHTML}
+      <div class="card-name">${area.nombre}</div>
+      ${valueHTML}
+      ${sparkHTML}
+      <div class="card-action">→ <strong>${area.proximaAccion}</strong></div>
+      <div class="card-updated ${updClass}">${updLabel}</div>
+    </div>`;
+}
+
+// ────────────────────────────────────────────
+// HEMISPHERE SCORE
+// ────────────────────────────────────────────
+const WEIGHTS = {
+  'kappa-op':5,'kappa-fin':4,'oos':5,'trucking-academy':2,'marca-personal':3,
+  'fin-personal':4,'salud':5,'legado':3,'aprendizaje':3
+};
+
+function calcHemPct(areas) {
+  let tw = 0, ts = 0;
+  areas.forEach(a => {
+    const w = WEIGHTS[a.id] || 3;
+    let v;
+    if (a.tipo === 'proyecto') { v = a.valor ?? 0; }
+    else {
+      v = semValue(a.semaforo);
+      if (v === null) return; // skip gris
+    }
+    tw += w; ts += w * v;
+  });
+  return tw === 0 ? null : Math.round(ts / tw);
+}
+
+function semFromPct(p) {
+  if (p === null) return 'gris';
+  return p >= 70 ? 'verde' : p >= 40 ? 'amarillo' : 'rojo';
+}
+
+// ────────────────────────────────────────────
+// RENDER
+// ────────────────────────────────────────────
+function render() {
+  // HOY
+  document.getElementById('hoy-texto').textContent = DATA.hoy.texto;
+  document.getElementById('hoy-razon').textContent = DATA.hoy.razon;
+
+  // Date
+  document.getElementById('header-date').textContent =
+    new Date().toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+  // Hemispheres
+  renderHemisphere('negocio', DATA.negocio);
+  renderHemisphere('personal', DATA.personal);
+
+  // Incoherence check
+  const kOp  = DATA.negocio.find(a => a.id === 'kappa-op');
+  const kFin = DATA.negocio.find(a => a.id === 'kappa-fin');
+  if (kOp && kOp.valor > 30 && kFin && kFin.semaforo === 'rojo') {
+    document.getElementById('incoherence-alert').classList.add('active');
+  }
+}
+
+function renderHemisphere(id, areas) {
+  const grid = document.getElementById(`${id}-grid`);
+  grid.className = `cards-grid count-${areas.length}`;
+  grid.innerHTML = areas.map((a,i) => renderCard(a, i, areas.length)).join('');
+
+  const pct = calcHemPct(areas);
+  const sem = semFromPct(pct);
+  document.getElementById(`${id}-pct`).textContent = pct !== null ? pct : '—';
+  document.getElementById(`${id}-pct`).style.color = semColor(sem);
+  document.getElementById(`${id}-dot`).style.background = semColor(sem);
+}
+
+// ────────────────────────────────────────────
+// CARD DETAIL MODAL
+// ────────────────────────────────────────────
+function openCard(id) {
+  const all = [...DATA.negocio, ...DATA.personal];
+  const area = all.find(a => a.id === id);
+  if (!area) return;
+
+  document.getElementById('modal-title').textContent = area.nombre;
+  let html = '';
+
+  // Meta block
+  html += `<div class="detail-meta">🎯 Meta del 100%: <strong>${area.meta}</strong></div>`;
+
+  // Value
+  if (area.tipo === 'proyecto') {
+    const pct = area.valor ?? 0;
+    const sc  = area.semaforo;
+    html += `<div class="detail-value" style="color:${semColor(sc)}">${pct}%</div>`;
+    html += `<div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.75rem;">
+               Ponderado por impacto (WTC) · Semáforo: <span style="color:${semColor(sc)};font-weight:700;">${sc.toUpperCase()}</span>
+             </div>`;
+    html += `<div class="progress-bar-container">
+               <div class="progress-bar-fill ${sc}" style="width:${pct}%"></div>
+             </div>`;
+  } else {
+    const label = area.semaforo === 'gris' ? 'SIN DATOS' : area.semaforo.toUpperCase();
+    html += `<div style="margin-bottom:1.25rem;">
+               <span class="semaforo-badge ${area.semaforo}" style="font-size:0.85rem;padding:0.35rem 0.75rem;">
+                 ● ${label}
+               </span>
+               <span style="margin-left:0.5rem;font-size:1rem;">${area.tendencia}</span>
+             </div>`;
+  }
+
+  // Detalle KV (for semaforo areas)
+  if (area.detalle) {
+    html += '<div class="detail-kv">';
+    Object.entries(area.detalle).forEach(([k,v]) => {
+      html += `<div class="detail-kv-row">
+                 <span class="detail-kv-key">${k}</span>
+                 <span class="detail-kv-val">${v}</span>
+               </div>`;
+    });
+    html += '</div>';
+  }
+
+  // Subtareas
+  if (area.subtareas && area.subtareas.length) {
+    html += '<div class="subtasks-title">Componentes — WTC</div>';
+    area.subtareas.forEach(st => {
+      const cc = st.estado === 'completado' ? 'done' : st.estado === 'progreso' ? 'progress' : '';
+      const ci = st.estado === 'completado' ? '✓' : st.estado === 'progreso' ? '◑' : '';
+      const tc = st.estado === 'completado' ? 'done' : '';
+      html += `<div class="subtask">
+                 <div class="subtask-check ${cc}">${ci}</div>
+                 <div class="subtask-text ${tc}">${st.texto}</div>
+                 <div class="subtask-peso">×${st.peso}</div>
+               </div>`;
+    });
+    html += '<div style="height:1rem;"></div>';
+  }
+
+  // Próxima acción
+  html += `<div class="next-action-block">
+             <span class="next-action-label">→ Próxima acción</span>
+             ${area.proximaAccion}
+           </div>`;
+
+  // Updated
+  html += `<div style="margin-top:0.85rem;font-size:0.68rem;color:#475569;text-align:right;">
+             Última actualización: ${fmtDate(area.ultimaActualizacion)}
+           </div>`;
+
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('card-modal').classList.add('active');
+}
+
+// ────────────────────────────────────────────
+// MODO DOMINGO
+// ────────────────────────────────────────────
+const DOMINGO_STEPS = [
+  { n:1, titulo:'Subir statement de Kappa', desc:'Exportar el P&L de BofA → compartir con Claude → Claude extrae ingresos, gastos y neto → actualizar tarjeta Kappa Finanzas.' },
+  { n:2, titulo:'Subir statement personal', desc:'Revisar gastos personales de la semana → verificar que el sueldo $1,500/viernes está registrado → actualizar Finanzas Personales.' },
+  { n:3, titulo:'Actualizar el libro de la semana', desc:'¿Qué libro o audiolibro escuchaste esta semana? Título + % completado → actualizar tarjeta Aprendizaje.' },
+  { n:4, titulo:'Marcar días activos — Apple Health', desc:'¿Cuántos días hiciste ejercicio o caminata? (meta: 5+) ¿Cuántos días meditaste? → actualizar Salud Física + Mental.' },
+  { n:5, titulo:'Revisar y ajustar el HOY de la semana', desc:'¿Qué mejoró? ¿Qué empeoró? ¿Qué área lleva +14 días sin actualizar? Ajustar la acción HOY para la semana que empieza.' },
+];
+
+function openDomingo() {
+  const container = document.getElementById('domingo-steps');
+  container.innerHTML = DOMINGO_STEPS.map(s => `
+    <div class="domingo-step">
+      <div class="step-num">${s.n}</div>
+      <div>
+        <div class="step-title">${s.titulo}</div>
+        <div class="step-desc">${s.desc}</div>
+        <div class="step-check">
+          <input type="checkbox" id="ds${s.n}">
+          <label for="ds${s.n}">Hecho</label>
+        </div>
+      </div>
+    </div>`).join('');
+  document.getElementById('domingo-modal').classList.add('active');
+}
+
+// ────────────────────────────────────────────
+// SYNC
+// ────────────────────────────────────────────
+function syncDashboard() {
+  const btn = document.getElementById('sync-btn');
+  btn.innerHTML = '<span class="syncing">⟳</span> SYNC';
+  btn.disabled = true;
+  setTimeout(() => {
+    render();
+    btn.innerHTML = '⟳ SYNC';
+    btn.disabled = false;
+    showToast('✓ Dashboard actualizado · ' + new Date().toLocaleTimeString('es-ES', {hour:'2-digit',minute:'2-digit'}));
+  }, 1200);
+}
+
+// ────────────────────────────────────────────
+// MODALS
+// ────────────────────────────────────────────
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+function handleOverlayClick(e, id) {
+  if (e.target === e.currentTarget) closeModal(id);
+}
+
+// ────────────────────────────────────────────
+// TOAST
+// ────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2800);
+}
+
+// ────────────────────────────────────────────
+// TABS
+// ────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    b.classList.toggle('active', (i===0 && tab==='general') || (i===1 && tab==='eos'));
+  });
+  document.getElementById('tab-general').style.display = tab==='general' ? '' : 'none';
+  document.getElementById('tab-eos').style.display     = tab==='eos'     ? '' : 'none';
+  if (tab==='eos') renderEOS();
+}
+
+function switchEOS(section) {
+  document.querySelectorAll('.eos-section').forEach(s => s.style.display='none');
+  document.getElementById(`eos-${section}`).style.display='';
+  document.querySelectorAll('.eos-sub-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('onclick').includes(`'${section}'`));
+  });
+}
+
+// ────────────────────────────────────────────
+// EOS DATA
+// ────────────────────────────────────────────
+const SCORECARD_METRICS = [
+  { id:'revenue', label:'Revenue semanal',      who:'Jesús', goal:3750,  unit:'$',    fmt:'currency', dir:'gte' },
+  { id:'millas',  label:'Millas operadas',       who:'Jesús', goal:2500,  unit:'mi',   fmt:'number',   dir:'gte' },
+  { id:'cpm',     label:'Costo por milla',       who:'Jesús', goal:1.20,  unit:'$/mi', fmt:'decimal',  dir:'lte' },
+  { id:'ar',      label:'Ctas x cobrar (días)',  who:'Jesús', goal:7,     unit:'días', fmt:'number',   dir:'lte' },
+  { id:'oos',     label:'OOs activos',           who:'Jesús', goal:3,     unit:'',     fmt:'number',   dir:'gte' },
+  { id:'cargas',  label:'Cargas despachadas',    who:'Jesús', goal:8,     unit:'',     fmt:'number',   dir:'gte' },
+  { id:'cash',    label:'Cash balance',          who:'Jesús', goal:5000,  unit:'$',    fmt:'currency', dir:'gte' },
+  { id:'brokers', label:'Brokers aprobados',     who:'Jesús', goal:10,    unit:'',     fmt:'number',   dir:'gte' },
+];
+
+// Generate 13 rolling week labels ending today
+function getWeekLabels() {
+  const labels = [];
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0=Sun
+  // Start of current week (Monday)
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7));
+  for (let i = 12; i >= 0; i--) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() - i * 7);
+    const mo = d.toLocaleString('es-ES',{month:'short'});
+    const dy = d.getDate();
+    labels.push(`${mo} ${dy}`);
+  }
+  return labels;
+}
+
+// ─── SEED DATA — fuentes anotadas ───────────────────────────────────────────
+// Índice de semanas: 0 = más antigua (hace 12 sem) → 12 = semana actual
+//
+// revenue → Notion: Q1 (ene–mar) ~$57k/mes ÷ 4 = ~$14,250/sem (sem 2–6)
+//           Notion: mayo ~$5,034/mes ÷ 4 = ~$1,258/sem (sem 10–12)
+//           Semana 4/10+4/17 = $5,200 confirmado War Room 2026-05-14
+//
+// oos     → Notion: 1 OO activo (Ernesto) toda la historia reciente
+// cash    → Notion: colchón crítico, ~$0 meta, fluctúa semana a semana — EDITAR
+// brokers → Estimado industria — EDITAR con tu número real
+// millas  → Estimado industria trucking FL — EDITAR con tus números reales
+// cpm     → Estimado industria ($1.20–1.50/mi en FL) — EDITAR
+// ar      → Estimado (factoring típico 2–5 días, sin factoring 7–14) — EDITAR
+// cargas  → Estimado (1 truck = 4–5 cargas/sem, +Ernesto ~3) — EDITAR
+// ─────────────────────────────────────────────────────────────────────────────
+const SCORECARD_SEED = {
+  // Notion: revenue Q1 ~$14,250/sem · caída desde abr cuando Jesús va solo a carretera
+  revenue: { 1:14250, 2:14100, 3:13800, 4:13200, 5:12800, 6:5200, 7:4900, 8:4800, 9:5200, 10:4800, 11:5034, 12:5034 },
+  // Estimado — EDITAR con millas reales de ELD/logs
+  millas:  { 1:2900,  2:2800,  3:2700,  4:2650,  5:2600,  6:1300, 7:1200, 8:1150, 9:1200, 10:1100, 11:1150, 12:1150 },
+  // Estimado industria FL — EDITAR
+  cpm:     { 1:1.14,  2:1.15,  3:1.17,  4:1.18,  5:1.20,  6:1.42, 7:1.45, 8:1.48, 9:1.45, 10:1.50, 11:1.48, 12:1.48 },
+  // Estimado — EDITAR (factoring vs sin factoring)
+  ar:      { 1:4,     2:5,     3:5,     4:6,     5:6,     6:7,    7:8,    8:8,    9:9,    10:9,    11:7,    12:7  },
+  // Notion confirmado: 1 OO activo (Ernesto) todo el período
+  oos:     { 1:1,     2:1,     3:1,     4:1,     5:1,     6:1,    7:1,    8:1,    9:1,    10:1,    11:1,    12:1  },
+  // Estimado (Jesús + Ernesto) — EDITAR con tus despachos reales
+  cargas:  { 1:10,    2:9,     3:9,     4:8,     5:8,     6:4,    7:4,    8:3,    9:4,    10:3,    11:4,    12:4  },
+  // Notion: cash crítico — estimado, EDITAR con balance real BofA
+  cash:    { 1:4500,  2:4200,  3:3800,  4:3100,  5:2800,  6:1500, 7:1200, 8:900,  9:1100, 10:800,  11:1500, 12:1500 },
+  // Estimado — EDITAR con brokers aprobados reales en tu TMS/loadboards
+  brokers: { 1:5,     2:6,     3:6,     4:6,     5:7,     6:7,    7:7,    8:8,    9:8,    10:8,    11:9,    12:9  },
+};
+
+function getScorecardData() {
+  const saved = JSON.parse(localStorage.getItem('sc_data') || '{}');
+  // Merge seed with saved (saved wins)
+  const merged = {};
+  SCORECARD_METRICS.forEach(m => {
+    merged[m.id] = {};
+    for (let w = 0; w < 13; w++) {
+      const seedVal = (SCORECARD_SEED[m.id] || {})[w];
+      const savedVal = (saved[m.id] || {})[w];
+      if (savedVal !== undefined && savedVal !== '') merged[m.id][w] = savedVal;
+      else if (seedVal !== undefined) merged[m.id][w] = seedVal;
+    }
+  });
+  return merged;
+}
+
+function saveScorecardCell(metricId, weekIdx, value) {
+  const saved = JSON.parse(localStorage.getItem('sc_data') || '{}');
+  if (!saved[metricId]) saved[metricId] = {};
+  saved[metricId][weekIdx] = value;
+  localStorage.setItem('sc_data', JSON.stringify(saved));
+}
+
+function fmtSCVal(val, fmt) {
+  if (val === null || val === undefined || val === '') return '';
+  const n = parseFloat(val);
+  if (isNaN(n)) return val;
+  if (fmt === 'currency') return '$' + n.toLocaleString('en-US', {maximumFractionDigits:0});
+  if (fmt === 'decimal')  return n.toFixed(2);
+  return n.toLocaleString('en-US', {maximumFractionDigits:0});
+}
+
+function cellClass(val, goal, dir) {
+  if (val === null || val === undefined || val === '') return 'cell-empty';
+  const n = parseFloat(val), g = parseFloat(goal);
+  if (isNaN(n)) return 'cell-empty';
+  if (dir === 'gte') return n >= g ? 'cell-green' : 'cell-red';
+  return n <= g ? 'cell-green' : 'cell-red';
+}
+
+function renderScorecard() {
+  const weeks  = getWeekLabels();
+  const data   = getScorecardData();
+  const table  = document.getElementById('scorecard-table');
+
+  // Header
+  let html = '<thead><tr>';
+  html += '<th class="col-label">Métrica</th><th class="col-who">WHO</th><th class="col-goal">GOAL</th>';
+  weeks.forEach((w, i) => {
+    const isCurrent = i === 12;
+    html += `<th class="col-week${isCurrent ? ' th-current' : ''}">${w}</th>`;
+  });
+  html += '</tr></thead><tbody>';
+
+  SCORECARD_METRICS.forEach(m => {
+    html += '<tr>';
+    html += `<td class="td-label">${m.label}</td>`;
+    html += `<td class="td-who">${m.who}</td>`;
+    html += `<td class="td-goal">${fmtSCVal(m.goal, m.fmt)}<span style="font-weight:400;color:var(--text-muted);font-size:0.65rem;"> ${m.unit}</span></td>`;
+    for (let w = 0; w < 13; w++) {
+      const raw = (data[m.id] || {})[w];
+      const cc  = cellClass(raw, m.goal, m.dir);
+      const disp = raw !== undefined && raw !== '' ? fmtSCVal(raw, m.fmt) : '';
+      html += `<td class="${cc}">
+        <input class="sc-cell" type="text" value="${disp}"
+          placeholder="—"
+          onchange="handleSCChange('${m.id}',${w},this)"
+          onfocus="this.select()">
+      </td>`;
+    }
+    html += '</tr>';
+  });
+
+  html += '</tbody>';
+  table.innerHTML = html;
+}
+
+function handleSCChange(metricId, weekIdx, input) {
+  const raw = input.value.replace(/[$,]/g,'').trim();
+  saveScorecardCell(metricId, weekIdx, raw === '' ? '' : parseFloat(raw) || raw);
+  const m = SCORECARD_METRICS.find(x => x.id === metricId);
+  const cc = raw === '' ? 'cell-empty' : cellClass(raw, m.goal, m.dir);
+  input.parentElement.className = cc;
+  input.value = raw === '' ? '' : fmtSCVal(raw, m.fmt);
+}
+
+// ── ROCKS ──
+const EOS_ROCKS = [
+  {
+    num: 1,
+    titulo: 'Command Center + Scorecard operativo activo',
+    owner: 'Jesús',
+    deadline: '15 Jun 2026',
+    status: 'on-track',
+    notas: 'En construcción — Command Center live hoy. Scorecard activo esta semana.'
+  },
+  {
+    num: 2,
+    titulo: '1 OO nuevo firmado y activo bajo autoridad Kappa',
+    owner: 'Jesús',
+    deadline: '30 Jun 2026',
+    status: 'off-track',
+    notas: '0 conversaciones activas. Pipeline vacío. Leads del 24 abr sin seguimiento.'
+  },
+  {
+    num: 3,
+    titulo: 'V/TO inicial completo y aprobado',
+    owner: 'Jesús',
+    deadline: '30 Jun 2026',
+    status: 'on-track',
+    notas: 'Borrador listo en este dashboard. Requiere revisión y firma de Jesús.'
+  },
+  {
+    num: 4,
+    titulo: 'Amazon Relay — primera carga completada',
+    owner: 'Jesús',
+    deadline: '30 Jun 2026',
+    status: 'on-track',
+    notas: 'Aplicación enviada ✅. Pendiente aprobación y onboarding de la app.'
+  },
+];
+
+function renderRocks() {
+  const onTrack = EOS_ROCKS.filter(r => r.status === 'on-track').length;
+  document.getElementById('rocks-ontrack').textContent = `${onTrack}/${EOS_ROCKS.length} On Track`;
+
+  const statusLabel = { 'on-track':'✅ On Track', 'off-track':'🔴 Off Track', 'done':'✓ Done' };
+  document.getElementById('rocks-list').innerHTML = EOS_ROCKS.map(r => `
+    <div class="rock-card">
+      <div class="rock-num">${r.num}</div>
+      <div style="flex:1;">
+        <div class="rock-title">${r.titulo}</div>
+        <div class="rock-meta">
+          <span>👤 ${r.owner}</span>
+          <span>📅 ${r.deadline}</span>
+          <span class="status-pill ${r.status}">${statusLabel[r.status]}</span>
+        </div>
+        <div class="rock-notes">${r.notas}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ── ISSUES ──
+const EOS_ISSUES = [
+  { desc:'Truck 02 sin chofer — Jesús sigue manejando, no puede cerrar OOs', priority:'alta', fecha:'Abr 2026', status:'abierto' },
+  { desc:'0 OOs en pipeline activo — leads del 24 abr con 30+ días sin seguimiento', priority:'alta', fecha:'May 2026', status:'abierto' },
+  { desc:'Jesús cubre Visionary + Integrator + Ops — sin estructura de delegación real', priority:'alta', fecha:'Abr 2026', status:'abierto' },
+  { desc:'Kit $37 en estado zombie — 6 semanas sin decisión binaria', priority:'alta', fecha:'Abr 2026', status:'abierto' },
+  { desc:'Contenido irregular — 2 videos en todo mayo vs meta 3+/semana', priority:'media', fecha:'May 2026', status:'abierto' },
+  { desc:'Amazon Relay aplicado — pendiente aprobación y primera carga', priority:'media', fecha:'May 2026', status:'en-proceso' },
+  { desc:'Trailer 5-35 rentado — pendiente confirmar contrato formal y seguro del arrendatario', priority:'media', fecha:'May 2026', status:'en-proceso' },
+];
+
+function renderIssues() {
+  const statusLabel = { abierto:'Abierto', 'en-proceso':'En proceso', resuelto:'Resuelto' };
+  document.getElementById('issues-list').innerHTML = EOS_ISSUES.map(iss => `
+    <div class="issue-row">
+      <div class="priority-badge ${iss.priority}">${iss.priority.toUpperCase()}</div>
+      <div style="flex:1;">
+        <div class="issue-desc">${iss.desc}</div>
+        <div class="issue-meta">Identificado: ${iss.fecha}</div>
+      </div>
+      <div class="issue-status ${iss.status === 'abierto' ? '' : iss.status}">${statusLabel[iss.status]}</div>
+    </div>`).join('');
+}
+
+// ── V/TO ──
+const VTO = {
+  coreValues: [
+    'Honestidad — hacemos lo que decimos, siempre',
+    'Responsabilidad — cada carga es un compromiso personal',
+    'Excelencia operativa — eficiencia en cada milla',
+    'Comunidad hispana — ayudamos a los nuestros a crecer en USA',
+  ],
+  purposePassion: 'Que los hispanos en USA puedan vivir del trucking con dignidad, orden y libertad financiera.',
+  niche: 'Owner-operators hispanos nuevos (0–12 meses) que quieren su propia autoridad MC y equipo de calidad.',
+  tenYear: '50 trailers operando · 50 OOs bajo autoridad Kappa · $2M+ ingreso anual · Trucking Academy como negocio educativo independiente con 1,000+ graduados.',
+  marketing: {
+    targetMarket: 'Camioneros hispanos con CDL en USA buscando independencia como OO — especialmente en Florida, Texas y California.',
+    threeUniques: '1. Dueño-operador real que enseña desde adentro · 2. Autoridad MC activa con equipo disponible · 3. Comunidad hispana con soporte en español.',
+    provenProcess: 'Inbound por contenido → DM calificado → Call de 30 min → Acuerdo lease-on → Onboarding 48h → Despacho activo.',
+    guarantee: 'Si en los primeros 30 días no tienes una carga activa, te devolvemos el depósito.',
+  },
+  threeYear: {
+    revenue: '$500,000',
+    profit: '$150,000',
+    measurables: ['15 trailers operando', '15 OOs activos', '5,000 suscriptores YouTube', 'Trucking Academy con 100+ alumnos'],
+  },
+  oneYear: {
+    revenue: '$180,000',
+    profit: '$45,000',
+    goals: ['4 OOs activos bajo autoridad Kappa', 'Amazon Relay activo con carga constante', 'Trucking Academy — primera venta validada', 'Jesús fuera del truck (chofer contratado Truck 02)'],
+  },
+};
+
+function renderVTO() {
+  document.getElementById('vto-content').innerHTML = `
+    <div class="vto-section">
+      <div class="vto-section-title">Core Values</div>
+      ${VTO.coreValues.map(v => `<div class="vto-value" style="margin-bottom:0.4rem;">• ${v}</div>`).join('')}
+    </div>
+    <div class="vto-section">
+      <div class="vto-section-title">Core Focus</div>
+      <div class="vto-grid">
+        <div class="vto-field">
+          <div class="vto-label">Purpose / Passion</div>
+          <div class="vto-value">${VTO.purposePassion}</div>
+        </div>
+        <div class="vto-field">
+          <div class="vto-label">Our Niche</div>
+          <div class="vto-value">${VTO.niche}</div>
+        </div>
+      </div>
+    </div>
+    <div class="vto-section">
+      <div class="vto-section-title">10 Year Target</div>
+      <div class="vto-value">${VTO.tenYear}</div>
+    </div>
+    <div class="vto-section">
+      <div class="vto-section-title">Marketing Strategy</div>
+      <div class="vto-grid">
+        <div class="vto-field">
+          <div class="vto-label">Target Market</div>
+          <div class="vto-value">${VTO.marketing.targetMarket}</div>
+        </div>
+        <div class="vto-field">
+          <div class="vto-label">3 Uniques</div>
+          <div class="vto-value">${VTO.marketing.threeUniques}</div>
+        </div>
+        <div class="vto-field">
+          <div class="vto-label">Proven Process</div>
+          <div class="vto-value">${VTO.marketing.provenProcess}</div>
+        </div>
+        <div class="vto-field">
+          <div class="vto-label">Guarantee</div>
+          <div class="vto-value">${VTO.marketing.guarantee}</div>
+        </div>
+      </div>
+    </div>
+    <div class="vto-section">
+      <div class="vto-section-title">3 Year Picture — 2029</div>
+      <div class="vto-grid">
+        <div class="vto-field">
+          <div class="vto-label">Revenue</div>
+          <div class="vto-value" style="font-size:1.1rem;font-weight:800;color:var(--verde);">${VTO.threeYear.revenue}</div>
+        </div>
+        <div class="vto-field">
+          <div class="vto-label">Profit</div>
+          <div class="vto-value" style="font-size:1.1rem;font-weight:800;color:var(--verde);">${VTO.threeYear.profit}</div>
+        </div>
+      </div>
+      ${VTO.threeYear.measurables.map(m => `<div class="vto-value" style="margin-bottom:0.4rem;">• ${m}</div>`).join('')}
+    </div>
+    <div class="vto-section">
+      <div class="vto-section-title">1 Year Plan — 2026</div>
+      <div class="vto-grid">
+        <div class="vto-field">
+          <div class="vto-label">Revenue</div>
+          <div class="vto-value" style="font-size:1.1rem;font-weight:800;color:var(--azul);">${VTO.oneYear.revenue}</div>
+        </div>
+        <div class="vto-field">
+          <div class="vto-label">Profit</div>
+          <div class="vto-value" style="font-size:1.1rem;font-weight:800;color:var(--azul);">${VTO.oneYear.profit}</div>
+        </div>
+      </div>
+      ${VTO.oneYear.goals.map(g => `<div class="vto-value" style="margin-bottom:0.4rem;">✓ ${g}</div>`).join('')}
+    </div>`;
+}
+
+// ── ORG CHART ──
+function renderOrgChart() {
+  document.getElementById('org-chart').innerHTML = `
+    <div class="org-tree">
+
+      <!-- Row 1: Visionary -->
+      <div class="org-level">
+        <div class="org-node top">
+          <div class="org-node-role">Visionary</div>
+          <div class="org-node-name">Jesús Torres</div>
+          <div class="org-node-resp">Dirección · Cultura · Grandes decisiones · Relaciones clave · Nuevo negocio</div>
+        </div>
+      </div>
+
+      <div class="org-connector"></div>
+
+      <!-- Row 2: Integrator -->
+      <div class="org-level">
+        <div class="org-node risk">
+          <div class="org-node-role">Integrator</div>
+          <div class="org-node-name">Jesús Torres</div>
+          <div class="org-node-resp">Ejecución del plan · Responsabilidad del equipo · P&L</div>
+          <div><span class="org-node-flag flag-risk">⚠️ Mismo que Visionary — riesgo</span></div>
+        </div>
+      </div>
+
+      <div class="org-connector"></div>
+
+      <!-- Row 3: 4 functions -->
+      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div class="org-node">
+            <div class="org-node-role">Ventas / Marketing</div>
+            <div class="org-node-name" style="color:var(--text-muted);">VACANTE</div>
+            <div class="org-node-resp">Contenido inbound · DMs · Cierre OOs</div>
+            <div><span class="org-node-flag flag-vacant">Cubierto por Jesús</span></div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div class="org-node">
+            <div class="org-node-role">Operaciones</div>
+            <div class="org-node-name">Jesús Torres</div>
+            <div class="org-node-resp">Dispatch · Flota · OOs · Cumplimiento FMCSA</div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div class="org-node">
+            <div class="org-node-role">Finanzas</div>
+            <div class="org-node-name" style="color:var(--text-muted);">VACANTE</div>
+            <div class="org-node-resp">P&L · Cuentas x cobrar · Colchón de caja</div>
+            <div><span class="org-node-flag flag-vacant">Cubierto por Jesús</span></div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div class="org-node">
+            <div class="org-node-role">Estrategia / IA</div>
+            <div class="org-node-name">Claude + Manus</div>
+            <div class="org-node-resp">Claude: análisis, redacción, Notion · Manus: research autónomo</div>
+            <div><span class="org-node-flag flag-claude">Agentes IA</span></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div style="margin-top:1.25rem;padding:0.75rem 1rem;background:var(--amarillo-bg);border:1px solid var(--amarillo-border);border-radius:8px;font-size:0.8rem;color:var(--amarillo);line-height:1.5;">
+      <strong>⚠️ Bottleneck crítico:</strong> Jesús ocupa Visionary + Integrator + Operaciones + Ventas + Finanzas simultáneamente. El siguiente hire más importante no es un chofer — es un Integrator o asistente de operaciones que libere a Jesús del trabajo táctico. Sin eso, el crecimiento tiene techo.
+    </div>`;
+}
+
+// ── RENDER EOS ──
+function renderEOS() {
+  renderScorecard();
+  renderRocks();
+  renderIssues();
+  renderVTO();
+  renderOrgChart();
+}
+
+// ────────────────────────────────────────────
+// INIT
+// ────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
