@@ -1769,39 +1769,39 @@ function handleSCChange(metricId, weekIdx, input) {
   input.value = raw === '' ? '' : fmtSCVal(raw, m.fmt);
 }
 
-// ── ROCKS ──
+// ── ROCKS ── (fuente: Notion › 🪨 Rocks — Prioridades Trimestrales)
 const EOS_ROCKS = [
   {
     num: 1,
-    titulo: 'Command Center + Scorecard operativo activo',
-    owner: 'Jesús',
-    deadline: '15 Jun 2026',
-    status: 'on-track',
-    notas: 'En construcción — Command Center live hoy. Scorecard activo esta semana.'
-  },
-  {
-    num: 2,
-    titulo: '1 OO nuevo firmado y activo bajo autoridad Kappa',
+    titulo: 'Contratar chofer para Truck 02',
     owner: 'Jesús',
     deadline: '30 Jun 2026',
     status: 'off-track',
-    notas: '0 conversaciones activas. Pipeline vacío. Leads del 24 abr sin seguimiento.'
+    notas: 'Truck sin chofer — Jesús lo opera. Sin esto no escala la operación.'
+  },
+  {
+    num: 2,
+    titulo: 'Activar Combinación B — Truck 1117 + Trailer 1711',
+    owner: 'Jesús',
+    deadline: '30 Jun 2026',
+    status: 'on-track',
+    notas: 'Truck en taller Fase 2. Trailer mantenimiento pendiente. Avance: 50%.'
   },
   {
     num: 3,
-    titulo: 'V/TO inicial completo y aprobado',
+    titulo: '2 OOs nuevos activos bajo autoridad Kappa',
     owner: 'Jesús',
-    deadline: '30 Jun 2026',
+    deadline: '1 Jun 2026',
     status: 'on-track',
-    notas: 'Borrador listo en este dashboard. Requiere revisión y firma de Jesús.'
+    notas: 'OOs activos: Ernesto Iser, Raudel Coronado, Liuba El Flaco. Meta: 2 nuevos. Avance: 40%.'
   },
   {
     num: 4,
-    titulo: 'Amazon Relay — primera carga completada',
+    titulo: '3 videos/semana consistentes — Marca Personal',
     owner: 'Jesús',
     deadline: '30 Jun 2026',
     status: 'on-track',
-    notas: 'Aplicación enviada ✅. Pendiente aprobación y onboarding de la app.'
+    notas: '2 videos publicados en mayo. Meta: 3/semana consistente. Avance: 30%.'
   },
 ];
 
@@ -1825,15 +1825,15 @@ function renderRocks() {
     </div>`).join('');
 }
 
-// ── ISSUES ──
+// ── ISSUES ── (fuente: Notion › 🔥 Issues — IDS)
 const EOS_ISSUES = [
-  { desc:'Truck 02 sin chofer — Jesús sigue manejando, no puede cerrar OOs', priority:'alta', fecha:'Abr 2026', status:'abierto' },
-  { desc:'0 OOs en pipeline activo — leads del 24 abr con 30+ días sin seguimiento', priority:'alta', fecha:'May 2026', status:'abierto' },
-  { desc:'Jesús cubre Visionary + Integrator + Ops — sin estructura de delegación real', priority:'alta', fecha:'Abr 2026', status:'abierto' },
-  { desc:'Kit $37 en estado zombie — 6 semanas sin decisión binaria', priority:'alta', fecha:'Abr 2026', status:'abierto' },
-  { desc:'Contenido irregular — 2 videos en todo mayo vs meta 3+/semana', priority:'media', fecha:'May 2026', status:'abierto' },
-  { desc:'Amazon Relay aplicado — pendiente aprobación y primera carga', priority:'media', fecha:'May 2026', status:'en-proceso' },
-  { desc:'Trailer 5-35 rentado — pendiente confirmar contrato formal y seguro del arrendatario', priority:'media', fecha:'May 2026', status:'en-proceso' },
+  { desc:'Truck 02 sin chofer — sin ingreso de ese truck', priority:'alta', fecha:'May 2026', status:'abierto' },
+  { desc:'Trailer 1711 — mantenimiento pendiente (Día 18 ❌)', priority:'alta', fecha:'May 2026', status:'abierto' },
+  { desc:'Cash buffer < $5,000 — operación en riesgo ante imprevisto', priority:'alta', fecha:'May 2026', status:'en-proceso' },
+  { desc:'Trailer 5-35 sin publicar en Facebook — renta pasiva perdida', priority:'media', fecha:'May 2026', status:'abierto' },
+  { desc:'Seguro Progressive — renovación Oct 20, 2026', priority:'media', fecha:'May 2026', status:'abierto' },
+  { desc:'Sin chofer para Truck 1117 al salir del taller', priority:'media', fecha:'May 2026', status:'abierto' },
+  { desc:'Amazon Relay — cargas activas pendiente de maximizar', priority:'baja', fecha:'May 2026', status:'abierto' },
 ];
 
 function renderIssues() {
