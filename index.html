@@ -846,6 +846,180 @@
     .flag-risk    { background: var(--amarillo-bg); color: var(--amarillo); }
     .flag-vacant  { background: var(--gris-bg);    color: var(--text-muted); }
     .flag-claude  { background: rgba(37,99,235,0.08); color: var(--azul); }
+
+    /* ── BRAIN TAB ── */
+    .brain-wrap { padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .brain-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .brain-section-header {
+      padding: 0.85rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brain-section-header .bsh-title { color: var(--text); }
+    .brain-date, .brain-count {
+      font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
+      text-transform: none; letter-spacing: 0;
+    }
+
+    .daily-note-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 640px) { .daily-note-grid { grid-template-columns: 1fr; } }
+
+    .daily-field {
+      padding: 0.9rem 1rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .daily-field:nth-child(2n) { border-right: none; }
+    .daily-field:nth-child(3), .daily-field:nth-child(4) { border-bottom: none; }
+
+    .daily-field-label {
+      font-size: 0.63rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 0.45rem;
+    }
+
+    .daily-textarea {
+      width: 100%; min-height: 88px; background: transparent;
+      border: none; outline: none; resize: vertical;
+      font-size: 0.84rem; color: var(--text); font-family: inherit;
+      line-height: 1.5; padding: 0;
+    }
+    .daily-textarea::placeholder { color: var(--text-muted); opacity: 0.55; }
+
+    .brain-save-row {
+      padding: 0.65rem 1rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .btn-brain-save {
+      background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.3);
+      color: var(--azul); font-size: 0.75rem;
+    }
+    .btn-brain-save:hover { background: rgba(37,99,235,0.13); border-color: var(--azul); }
+    .brain-save-status { font-size: 0.75rem; color: var(--verde); font-weight: 600; }
+
+    .past-notes { padding: 0 1rem 0.6rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .past-notes-label {
+      width: 100%; font-size: 0.62rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--text-muted); padding-top: 0.5rem; padding-bottom: 0.15rem;
+    }
+    .past-note-chip {
+      padding: 0.2rem 0.55rem; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px; font-size: 0.7rem; color: var(--text-muted);
+      cursor: pointer; transition: all 0.12s;
+    }
+    .past-note-chip:hover { border-color: var(--azul); color: var(--azul); }
+
+    /* Ideas Bank */
+    .idea-capture {
+      padding: 0.85rem 1rem; border-bottom: 1px solid var(--border);
+      display: flex; gap: 0.6rem; align-items: flex-start;
+    }
+    .idea-textarea {
+      flex: 1; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.5rem 0.7rem; font-size: 0.84rem;
+      color: var(--text); font-family: inherit; outline: none; resize: none;
+      min-height: 52px; line-height: 1.45; transition: border-color 0.15s;
+    }
+    .idea-textarea:focus { border-color: rgba(37,99,235,0.5); }
+    .idea-textarea::placeholder { color: var(--text-muted); opacity: 0.55; }
+
+    .btn-add-idea {
+      background: var(--azul); color: #fff; border: none; border-radius: 8px;
+      padding: 0.5rem 0.85rem; font-size: 0.75rem; font-weight: 700;
+      cursor: pointer; white-space: nowrap; transition: background 0.15s;
+    }
+    .btn-add-idea:hover { background: #1d4ed8; }
+
+    .ideas-list { max-height: 300px; overflow-y: auto; }
+
+    .idea-item {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border);
+      transition: background 0.1s;
+    }
+    .idea-item:last-child { border-bottom: none; }
+    .idea-item:hover { background: var(--bg-card-hover); }
+
+    .idea-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--azul);
+      margin-top: 7px; flex-shrink: 0;
+    }
+    .idea-text { flex: 1; font-size: 0.84rem; color: var(--text); line-height: 1.45; }
+    .idea-meta { font-size: 0.67rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+    .idea-delete {
+      background: none; border: none; color: var(--text-muted);
+      cursor: pointer; font-size: 0.78rem; padding: 0.1rem 0.25rem;
+      border-radius: 3px; opacity: 0.45; transition: opacity 0.12s;
+    }
+    .idea-delete:hover { opacity: 1; color: var(--rojo); }
+
+    .ideas-empty {
+      padding: 1.5rem 1rem; text-align: center;
+      color: var(--text-muted); font-size: 0.82rem; line-height: 1.5;
+    }
+
+    /* AI Connect */
+    .claude-connect-info {
+      padding: 0.8rem 1.1rem; font-size: 0.79rem; color: var(--text-muted);
+      line-height: 1.5; border-bottom: 1px solid var(--border);
+    }
+
+    .ai-prompts-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 600px) { .ai-prompts-grid { grid-template-columns: 1fr; } }
+
+    .ai-prompt-card {
+      padding: 1rem 1.1rem; border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.12s;
+    }
+    .ai-prompt-card:nth-child(2n) { border-right: none; }
+    .ai-prompt-card:nth-child(3), .ai-prompt-card:nth-child(4) { border-bottom: none; }
+    .ai-prompt-card:hover { background: var(--bg-card-hover); }
+
+    .prompt-icon { font-size: 1.15rem; margin-bottom: 0.35rem; }
+    .prompt-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+    .prompt-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* Copy Claude Button in footer */
+    .copy-claude-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.6rem 1rem; margin: 0.85rem 0 0;
+      background: rgba(124,58,237,0.07); border: 1px solid rgba(124,58,237,0.28);
+      border-radius: 8px; color: var(--morado); font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; width: 100%; transition: all 0.15s;
+    }
+    .copy-claude-btn:hover { background: rgba(124,58,237,0.13); border-color: var(--morado); }
+
+    /* Context modal */
+    .context-textarea {
+      width: 100%; height: 260px; background: #f8fafc;
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.7rem 0.85rem; font-size: 0.76rem;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      color: var(--text); resize: vertical; outline: none; line-height: 1.5;
+    }
+    .context-actions { display: flex; gap: 0.5rem; margin-top: 0.65rem; }
+    .btn-copy-context {
+      flex: 1; padding: 0.55rem; background: var(--morado); color: #fff;
+      border: none; border-radius: 7px; font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn-copy-context:hover { background: #6d28d9; }
   </style>
 </head>
 <body>
@@ -868,6 +1042,7 @@
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('general')">🔭 Vista General</button>
   <button class="tab-btn" onclick="switchTab('eos')">⚙️ EOS Dashboard</button>
+  <button class="tab-btn" onclick="switchTab('brain')">🧠 Brain</button>
 </div>
 
 <div id="tab-general">
@@ -954,6 +1129,10 @@
       <div class="action-time">⏱ 15 min para decidir · 2 h si la respuesta es sí</div>
     </div>
   </div>
+
+  <button class="copy-claude-btn" onclick="exportContext('general')">
+    📋 Copiar contexto completo para Claude — pégalo en cualquier IA y pregunta lo que necesites
+  </button>
 </div>
 
 <!-- ═══════════════════════════════════════════
@@ -1074,6 +1253,94 @@
 </div><!-- /tab-eos -->
 
 <!-- ═══════════════════════════════════════════
+     TAB BRAIN
+════════════════════════════════════════════ -->
+<div id="tab-brain" style="display:none;">
+<div class="brain-wrap">
+
+  <!-- Daily Note -->
+  <div class="brain-section">
+    <div class="brain-section-header">
+      <span class="bsh-title">📝 Nota del Día</span>
+      <span class="brain-date" id="brain-date">—</span>
+    </div>
+    <div class="daily-note-grid">
+      <div class="daily-field">
+        <div class="daily-field-label">🎯 Enfoque — ¿cuál es la UNA cosa que importa hoy?</div>
+        <textarea id="brain-focus" class="daily-textarea" placeholder="Escribe tu enfoque del día..."></textarea>
+      </div>
+      <div class="daily-field">
+        <div class="daily-field-label">💡 Notas — ideas, pensamientos, actualizaciones</div>
+        <textarea id="brain-notes" class="daily-textarea" placeholder="Drop thoughts here throughout the day..."></textarea>
+      </div>
+      <div class="daily-field">
+        <div class="daily-field-label">✅ Wins — ¿qué se completó?</div>
+        <textarea id="brain-wins" class="daily-textarea" placeholder="¿Qué salió bien hoy?"></textarea>
+      </div>
+      <div class="daily-field">
+        <div class="daily-field-label">🔄 Pendientes — ¿qué quedó abierto?</div>
+        <textarea id="brain-loops" class="daily-textarea" placeholder="Loops sin cerrar, follow-ups pendientes..."></textarea>
+      </div>
+    </div>
+    <div class="brain-save-row">
+      <button class="btn btn-brain-save" onclick="saveDailyNote()">💾 Guardar nota del día</button>
+      <span class="brain-save-status" id="save-status"></span>
+    </div>
+    <div class="past-notes" id="past-notes-list"></div>
+  </div>
+
+  <!-- Ideas Bank -->
+  <div class="brain-section">
+    <div class="brain-section-header">
+      <span class="bsh-title">💡 Banco de Ideas</span>
+      <span class="brain-count" id="ideas-count">0 ideas</span>
+    </div>
+    <div class="idea-capture">
+      <textarea id="idea-input" class="idea-textarea"
+        placeholder="Captura una idea — hook, decisión, concepto, oportunidad..."
+        onkeydown="handleIdeaKey(event)"></textarea>
+      <button class="btn-add-idea" onclick="addIdea()">+ Agregar</button>
+    </div>
+    <div class="ideas-list" id="ideas-list"></div>
+  </div>
+
+  <!-- Claude Connection -->
+  <div class="brain-section">
+    <div class="brain-section-header">
+      <span class="bsh-title">🤖 Conectar con Claude</span>
+    </div>
+    <div class="claude-connect-info">
+      El método más rápido: elige una pregunta → copia el contexto → pégalo en Claude, ChatGPT, o cualquier IA que uses → pregunta.
+      Tus notas y métricas del dashboard se incluyen automáticamente. Sin plugins. Sin setup.
+    </div>
+    <div class="ai-prompts-grid">
+      <div class="ai-prompt-card" onclick="exportContext('patrones')">
+        <div class="prompt-icon">🔍</div>
+        <div class="prompt-title">Patrones de la semana</div>
+        <div class="prompt-desc">¿Qué temas se repiten? ¿Qué decisiones estoy evitando?</div>
+      </div>
+      <div class="ai-prompt-card" onclick="exportContext('prioridad')">
+        <div class="prompt-icon">⚡</div>
+        <div class="prompt-title">Próxima acción</div>
+        <div class="prompt-desc">Dado mi estado actual, ¿qué debería hacer primero?</div>
+      </div>
+      <div class="ai-prompt-card" onclick="exportContext('semana')">
+        <div class="prompt-icon">📅</div>
+        <div class="prompt-title">Revisión semanal</div>
+        <div class="prompt-desc">¿En qué enfocarme la próxima semana según mis notas?</div>
+      </div>
+      <div class="ai-prompt-card" onclick="exportContext('pendientes')">
+        <div class="prompt-icon">🔄</div>
+        <div class="prompt-title">Cerrar loops abiertos</div>
+        <div class="prompt-desc">¿Qué pendientes llevan más de 7 días sin resolver?</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div><!-- /tab-brain -->
+
+<!-- ═══════════════════════════════════════════
      MODAL — DETALLE DE ÁREA
 ════════════════════════════════════════════ -->
 <div class="modal-overlay" id="card-modal" onclick="handleOverlayClick(event,'card-modal')">
@@ -1108,6 +1375,27 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════
+     MODAL — CONTEXTO PARA CLAUDE
+════════════════════════════════════════════ -->
+<div class="modal-overlay" id="context-modal" onclick="handleOverlayClick(event,'context-modal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📋 Contexto para Claude</div>
+      <button class="modal-close" onclick="closeModal('context-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.85rem;line-height:1.5;">
+        Copia este texto → pégalo en Claude, ChatGPT, Gemini, o cualquier IA → haz tu pregunta.
+      </p>
+      <textarea class="context-textarea" id="context-text" readonly></textarea>
+      <div class="context-actions">
+        <button class="btn-copy-context" onclick="copyContextText()">📋 Copiar al portapapeles</button>
+        <button class="btn" onclick="closeModal('context-modal')" style="padding:0.55rem 1rem;">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════
      JAVASCRIPT
@@ -1542,6 +1830,7 @@ const DOMINGO_STEPS = [
   { n:3, titulo:'Actualizar el libro de la semana', desc:'¿Qué libro o audiolibro escuchaste esta semana? Título + % completado → actualizar tarjeta Aprendizaje.' },
   { n:4, titulo:'Marcar días activos — Apple Health', desc:'¿Cuántos días hiciste ejercicio o caminata? (meta: 5+) ¿Cuántos días meditaste? → actualizar Salud Física + Mental.' },
   { n:5, titulo:'Revisar y ajustar el HOY de la semana', desc:'¿Qué mejoró? ¿Qué empeoró? ¿Qué área lleva +14 días sin actualizar? Ajustar la acción HOY para la semana que empieza.' },
+  { n:6, titulo:'Revisión con Claude — 10 minutos', desc:'Ir al tab Brain → hacer clic en "Revisión semanal" → pegar el contexto en Claude → preguntar: "¿Qué patrones ves? ¿Qué debería enfocar la semana que empieza?" Este paso es donde el sistema se vuelve inteligente con el tiempo.' },
 ];
 
 function openDomingo() {
@@ -1601,12 +1890,15 @@ function showToast(msg) {
 // TABS
 // ────────────────────────────────────────────
 function switchTab(tab) {
-  document.querySelectorAll('.tab-btn').forEach((b,i) => {
-    b.classList.toggle('active', (i===0 && tab==='general') || (i===1 && tab==='eos'));
+  const tabs = ['general', 'eos', 'brain'];
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', tabs[i] === tab);
   });
-  document.getElementById('tab-general').style.display = tab==='general' ? '' : 'none';
-  document.getElementById('tab-eos').style.display     = tab==='eos'     ? '' : 'none';
-  if (tab==='eos') renderEOS();
+  document.getElementById('tab-general').style.display = tab === 'general' ? '' : 'none';
+  document.getElementById('tab-eos').style.display     = tab === 'eos'     ? '' : 'none';
+  document.getElementById('tab-brain').style.display   = tab === 'brain'   ? '' : 'none';
+  if (tab === 'eos')   renderEOS();
+  if (tab === 'brain') renderBrain();
 }
 
 function switchEOS(section) {
@@ -2068,6 +2360,196 @@ function renderEOS() {
   renderIssues();
   renderVTO();
   renderOrgChart();
+}
+
+// ────────────────────────────────────────────
+// BRAIN — DAILY NOTES + IDEAS + EXPORT
+// ────────────────────────────────────────────
+
+function todayKey() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function formatDateEs(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  const dias   = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const meses  = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return `${dias[d.getDay()]} ${d.getDate()} ${meses[d.getMonth()]}`;
+}
+
+function saveDailyNote() {
+  const key = todayKey();
+  const allNotes = JSON.parse(localStorage.getItem('brain_notes') || '{}');
+  allNotes[key] = {
+    date: key,
+    focus: document.getElementById('brain-focus').value.trim(),
+    notes: document.getElementById('brain-notes').value.trim(),
+    wins:  document.getElementById('brain-wins').value.trim(),
+    loops: document.getElementById('brain-loops').value.trim(),
+    savedAt: new Date().toISOString()
+  };
+  localStorage.setItem('brain_notes', JSON.stringify(allNotes));
+  const st = document.getElementById('save-status');
+  st.textContent = '✓ Guardado';
+  setTimeout(() => { st.textContent = ''; }, 2000);
+  renderPastNotes();
+}
+
+function loadDailyNote(key) {
+  const allNotes = JSON.parse(localStorage.getItem('brain_notes') || '{}');
+  const note = allNotes[key] || {};
+  document.getElementById('brain-focus').value = note.focus || '';
+  document.getElementById('brain-notes').value = note.notes || '';
+  document.getElementById('brain-wins').value  = note.wins  || '';
+  document.getElementById('brain-loops').value = note.loops || '';
+  document.getElementById('brain-date').textContent = formatDateEs(key);
+}
+
+function renderPastNotes() {
+  const allNotes = JSON.parse(localStorage.getItem('brain_notes') || '{}');
+  const today = todayKey();
+  const keys = Object.keys(allNotes).filter(k => k !== today).sort().reverse().slice(0, 7);
+  const container = document.getElementById('past-notes-list');
+  if (!keys.length) { container.innerHTML = ''; return; }
+  container.innerHTML =
+    '<div class="past-notes-label">Notas anteriores</div>' +
+    keys.map(k => `<span class="past-note-chip" onclick="loadDailyNote('${k}')">${formatDateEs(k)}</span>`).join('');
+}
+
+function addIdea() {
+  const input = document.getElementById('idea-input');
+  const text = input.value.trim();
+  if (!text) return;
+  const ideas = JSON.parse(localStorage.getItem('brain_ideas') || '[]');
+  ideas.unshift({ id: Date.now(), text, date: todayKey(), createdAt: new Date().toISOString() });
+  localStorage.setItem('brain_ideas', JSON.stringify(ideas));
+  input.value = '';
+  renderIdeas();
+  updateIdeasCount();
+}
+
+function deleteIdea(id) {
+  const ideas = JSON.parse(localStorage.getItem('brain_ideas') || '[]').filter(i => i.id !== id);
+  localStorage.setItem('brain_ideas', JSON.stringify(ideas));
+  renderIdeas();
+  updateIdeasCount();
+}
+
+function renderIdeas() {
+  const ideas = JSON.parse(localStorage.getItem('brain_ideas') || '[]');
+  const container = document.getElementById('ideas-list');
+  if (!ideas.length) {
+    container.innerHTML = '<div class="ideas-empty">Ninguna idea capturada aún.<br>Agrega la primera arriba — una oración es suficiente.</div>';
+    return;
+  }
+  container.innerHTML = ideas.map(i => `
+    <div class="idea-item">
+      <div class="idea-dot"></div>
+      <div class="idea-text">
+        ${escHtml(i.text)}
+        <div class="idea-meta">${formatDateEs(i.date)}</div>
+      </div>
+      <button class="idea-delete" onclick="deleteIdea(${i.id})" title="Eliminar">✕</button>
+    </div>`).join('');
+}
+
+function updateIdeasCount() {
+  const ideas = JSON.parse(localStorage.getItem('brain_ideas') || '[]');
+  const el = document.getElementById('ideas-count');
+  if (el) el.textContent = `${ideas.length} idea${ideas.length !== 1 ? 's' : ''}`;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function handleIdeaKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); addIdea(); }
+}
+
+function renderBrain() {
+  const today = todayKey();
+  loadDailyNote(today);
+  renderPastNotes();
+  renderIdeas();
+  updateIdeasCount();
+}
+
+function exportContext(type) {
+  const today = todayKey();
+  const allNotes = JSON.parse(localStorage.getItem('brain_notes') || '{}');
+  const dn = allNotes[today] || {};
+  const ideas = JSON.parse(localStorage.getItem('brain_ideas') || '[]');
+
+  let ctx = `# Contexto — Jesús Command Center\nFecha: ${formatDateEs(today)} (${today})\n\n`;
+
+  ctx += `## Enfoque del día\n${DATA.hoy.texto}\n${DATA.hoy.razon}\n\n`;
+
+  ctx += `## Estado del Negocio\n`;
+  DATA.negocio.forEach(a => {
+    const st = a.valor !== null ? `${a.valor}% (${a.semaforo})` : a.semaforo;
+    ctx += `\n### ${a.nombre} — ${st}\n`;
+    if (a.proximaAccion) ctx += `Próxima acción: ${a.proximaAccion}\n`;
+  });
+
+  ctx += `\n## Estado Personal\n`;
+  DATA.personal.forEach(a => {
+    const st = a.valor !== null ? `${a.valor}% (${a.semaforo})` : a.semaforo;
+    ctx += `\n### ${a.nombre} — ${st}\n`;
+    if (a.proximaAccion) ctx += `Próxima acción: ${a.proximaAccion}\n`;
+  });
+
+  if (typeof EOS_ROCKS !== 'undefined' && EOS_ROCKS.length) {
+    ctx += `\n## Rocks Q2 2026\n`;
+    EOS_ROCKS.forEach((r, i) => { ctx += `${i+1}. ${r.titulo} — ${r.status || r.estado || '?'}\n`; });
+  }
+
+  if (typeof EOS_ISSUES !== 'undefined' && EOS_ISSUES.length) {
+    ctx += `\n## Issues Activos\n`;
+    EOS_ISSUES.forEach((iss, i) => { ctx += `${i+1}. ${iss.titulo}${iss.prioridad ? ` (${iss.prioridad})` : ''}\n`; });
+  }
+
+  if (dn.focus || dn.notes || dn.wins || dn.loops) {
+    ctx += `\n## Nota del Día\n`;
+    if (dn.focus) ctx += `**Enfoque:** ${dn.focus}\n`;
+    if (dn.notes) ctx += `**Notas:** ${dn.notes}\n`;
+    if (dn.wins)  ctx += `**Wins:** ${dn.wins}\n`;
+    if (dn.loops) ctx += `**Pendientes:** ${dn.loops}\n`;
+  }
+
+  if (ideas.length) {
+    ctx += `\n## Ideas Recientes\n`;
+    ideas.slice(0, 5).forEach(i => { ctx += `- ${i.text} (${formatDateEs(i.date)})\n`; });
+  }
+
+  const questions = {
+    patrones:   '\n---\n**PREGUNTA PARA CLAUDE:**\nAnalizando todo lo anterior, ¿qué patrones ves? ¿Qué decisiones estoy evitando? ¿Qué me llama la atención que yo quizás no estoy viendo?',
+    prioridad:  '\n---\n**PREGUNTA PARA CLAUDE:**\nDado mi estado actual, ¿cuál debería ser mi próxima acción más importante esta semana? Sé directo y concreto.',
+    semana:     '\n---\n**PREGUNTA PARA CLAUDE:**\nBasado en mis métricas, notas e ideas de esta semana, ¿en qué debería enfocarme la semana que empieza? Dame 3 prioridades concretas con un porqué para cada una.',
+    pendientes: '\n---\n**PREGUNTA PARA CLAUDE:**\n¿Cuáles de mis pendientes y loops abiertos llevan más tiempo sin resolver? ¿Cuál debería cerrar primero y cómo?',
+    general:    '\n---\n**PREGUNTA PARA CLAUDE:**\nRevisa este contexto y dame tu análisis honesto: ¿qué está bien, qué está mal, y cuál es la acción más importante que debería tomar esta semana?'
+  };
+
+  ctx += questions[type] || questions.general;
+
+  navigator.clipboard.writeText(ctx).then(() => {
+    showToast('✓ Contexto copiado — pégalo en Claude y pregunta');
+  }).catch(() => {
+    showContextModal(ctx);
+  });
+}
+
+function showContextModal(ctx) {
+  document.getElementById('context-text').value = ctx;
+  document.getElementById('context-modal').classList.add('active');
+}
+
+function copyContextText() {
+  const ta = document.getElementById('context-text');
+  ta.select();
+  document.execCommand('copy');
+  showToast('✓ Contexto copiado — pégalo en Claude y pregunta');
+  closeModal('context-modal');
 }
 
 // ────────────────────────────────────────────
