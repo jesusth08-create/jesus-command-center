@@ -931,27 +931,27 @@
   <div class="action-item">
     <div class="action-num uno">1</div>
     <div>
-      <div class="action-title">OO pipeline — 1 discovery call antes del viernes 30</div>
-      <div class="action-desc">Amazon Relay ✅ aplicado. Trailer 0202 ✅ rentado. El cuello de botella ahora es el pipeline: 0 conversaciones activas con OOs. Leads del 24 de abril con 30+ días sin seguimiento. Mandar DMs hoy — Claude te escribe el script en 2 minutos.</div>
-      <div class="action-time">⏱ 20–30 min DMs · 1 h si hay call · Solo Jesús puede hacer esto</div>
+      <div class="action-title">Cobrar los $12,848 del pipeline — PODs a Summar hoy</div>
+      <div class="action-desc">6 cargas sin cobrar: 5 estancadas en "Booked" (29 jun – 13 jul) y 1 entregada hace 47 días sin POD. Es dinero ya trabajado. Mandar PODs a Summar y confirmar pago con C.H. Robinson y Plains Dedicated. Claude te arma la lista de cargas con montos y brokers en 2 minutos.</div>
+      <div class="action-time">⏱ 1–2 h de papeleo · La vía más corta al colchón de $5–8k</div>
     </div>
   </div>
 
   <div class="action-item">
     <div class="action-num dos">2</div>
     <div>
-      <div class="action-title">Publicar 1 video esta semana — cerrar mayo con momentum</div>
-      <div class="action-desc">Ya llevas 2 videos en mayo. Publicar 1 más esta semana cierra el mes con 3 y activa el inbound para junio. Sin videos no hay DMs. Sin DMs no hay OOs. La cadena empieza aquí. Claude te genera el guion en sesión.</div>
-      <div class="action-time">⏱ 30 min grabar · Claude genera el guion ahora mismo</div>
+      <div class="action-title">Cerrar la renta del 27-822 con Safe Transport — $1,000 hoy + $1,000/mes</div>
+      <div class="action-desc">El contrato está listo desde el 30 de mayo. Firmar, cobrar el depósito y activar el Trailer 17-11 en el Truck 02 (3–4 días). Ese trailer rentado + el 0202 de Edwin = $1,500/mes pasivos sin manejar una milla.</div>
+      <div class="action-time">⏱ 1 llamada + firma · Al cerrar: montar el 17-11 y publicar la vacante CDL-A</div>
     </div>
   </div>
 
   <div class="action-item">
     <div class="action-num tres">3</div>
     <div>
-      <div class="action-title">Kit $37 — decisión binaria antes del miércoles</div>
-      <div class="action-desc">Semana 6 en "Not started". No es una tarea, es deuda de atención. Sí → Claude prepara el listing completo en sesión (2 h). No → sale del tablero hasta julio. El status quo no es una opción.</div>
-      <div class="action-time">⏱ 15 min para decidir · 2 h si la respuesta es sí</div>
+      <div class="action-title">Publicar 1 video esta semana — reactivar el inbound</div>
+      <div class="action-desc">Sin publicaciones registradas desde mayo. Sin videos no hay DMs; sin DMs no hay OOs ni chofer. Tienes historia real que contar: vendiste el 1117 para capitalizar el negocio y buscas chofer CDL-A. Claude te genera el guion en sesión.</div>
+      <div class="action-time">⏱ 30 min grabar · Claude genera el guion ahora mismo</div>
     </div>
   </div>
 </div>
@@ -1000,7 +1000,7 @@
   <!-- SubNav EOS -->
   <div class="eos-subnav">
     <button class="eos-sub-btn active" onclick="switchEOS('scorecard')">📊 Scorecard</button>
-    <button class="eos-sub-btn" onclick="switchEOS('rocks')">🪨 Rocks Q2</button>
+    <button class="eos-sub-btn" onclick="switchEOS('rocks')">🪨 Rocks</button>
     <button class="eos-sub-btn" onclick="switchEOS('issues')">⚠️ Issues</button>
     <button class="eos-sub-btn" onclick="switchEOS('vto')">🧭 V/TO</button>
     <button class="eos-sub-btn" onclick="switchEOS('org')">👥 Org Chart</button>
@@ -1026,8 +1026,8 @@
     <div class="eos-panel">
       <div class="eos-panel-header">
         <div>
-          <div class="eos-panel-title">Rocks — Q2 2026 (Apr–Jun)</div>
-          <div class="eos-panel-subtitle">3–7 prioridades críticas del trimestre · Revisión semanal</div>
+          <div class="eos-panel-title">Rocks — Q2 2026 CERRADO · Q3 sin definir</div>
+          <div class="eos-panel-subtitle">Q2 cerró sin rocks cumplidas — la #5 quedó obsoleta (venta del 1117) · Definir Rocks Q3 en el próximo Modo Domingo</div>
         </div>
         <div class="eos-panel-subtitle" id="rocks-ontrack"></div>
       </div>
@@ -1064,7 +1064,7 @@
     <div class="eos-panel">
       <div class="eos-panel-header">
         <div class="eos-panel-title">Accountability Chart — Kappa Delivery</div>
-        <div class="eos-panel-subtitle">⚠️ Jesús cubre 3 asientos — riesgo crítico de escalabilidad</div>
+        <div class="eos-panel-subtitle">⚠️ Jesús cubre 5 asientos — riesgo crítico de escalabilidad</div>
       </div>
       <div class="org-wrap" id="org-chart"></div>
     </div>
@@ -1114,34 +1114,35 @@
 ════════════════════════════════════════════ -->
 <script>
 // ────────────────────────────────────────────
-// DATA — Estado actual 2026-05-26
+// DATA — Estado actual 2026-07-26
 // ────────────────────────────────────────────
 const DATA = {
-  lastSync: '2026-05-26',
+  lastSync: '2026-07-26',
   hoy: {
-    texto: 'Mandar DMs de seguimiento a leads OO del 24 de abril — saber si alguien está vivo',
-    razon: 'Amazon Relay ✅ aplicado. El cuello de botella ahora es el pipeline: 0 conversaciones activas. Leads con 30+ días sin seguimiento. Claude te escribe el script ahora mismo.'
+    texto: 'Cobrar lo ya trabajado: 6 cargas por $12,848 sin facturar — una entregada hace 47 días sin POD',
+    razon: 'El pipeline del TMS no avanza de "Booked" desde fines de junio. Antes de buscar cargas nuevas, asegura ese dinero: manda PODs a Summar y confirma pago con C.H. Robinson y Plains Dedicated. Junto con los $8,000 de la venta del 1117, es la vía más corta al colchón de $5–8k.'
   },
   negocio: [
     {
       id: 'kappa-op',
       nombre: 'Kappa — Operación',
       tipo: 'proyecto',
-      valor: 23,
+      valor: 35,
       semaforo: 'rojo',
-      meta: '7 trailers todos en función — 3 camiones con chofer + 3 trailers rentados a OOs + 1 almacenaje',
+      meta: 'Toda la flota generando: Truck 02 con chofer + trailers rentados (0202 ✅, 27-822 en cierre, 5-35 pendiente) + equipo de Ernesto operando',
       tendencia: '↑',
-      ultimaActualizacion: '2026-05-26',
-      proximaAccion: 'Conseguir chofer para Truck 02 + Trailer 27-822 (actualmente Jesús lo maneja)',
-      historial: [14, 14, 14, 23],
+      ultimaActualizacion: '2026-07-26',
+      proximaAccion: 'Cerrar renta del 27-822 con Safe Transport ($1,000 depósito + $1,000/mes) y activar Trailer 17-11 en Truck 02 (3–4 días). Con eso, publicar la vacante de chofer CDL-A.',
+      historial: [14, 23, 30, 35],
       subtareas: [
-        { texto: 'Truck 02 + Trailer 27-822 con chofer', peso: 5, estado: 'progreso' },
-        { texto: 'Truck 1117 + Trailer 1711 con chofer', peso: 5, estado: 'pendiente' },
-        { texto: 'Tercer camión adquirido y operacional con chofer', peso: 4, estado: 'pendiente' },
-        { texto: 'Dry van 0202 (Trailer 5-35) rentado ✅', peso: 3, estado: 'completado' },
-        { texto: 'Trailer rentado a OO #2', peso: 3, estado: 'pendiente' },
-        { texto: 'Trailer rentado a OO #3', peso: 3, estado: 'pendiente' },
-        { texto: 'Trailer almacenaje asignado', peso: 1, estado: 'pendiente' },
+        { texto: 'Truck 02 con chofer contratado (Jesús fuera del asiento)', peso: 5, estado: 'progreso' },
+        { texto: 'Equipo Ernesto Iser (Truck 1257 + Trailer 2011) operando', peso: 4, estado: 'completado' },
+        { texto: 'Trailer 0202 rentado — Edwin Morales $500/mes', peso: 3, estado: 'completado' },
+        { texto: 'Trailer 27-822 rentado a Safe Transport — contrato listo, cierre pendiente', peso: 3, estado: 'progreso' },
+        { texto: 'Trailer 17-11 activado como reemplazo en Truck 02', peso: 2, estado: 'progreso' },
+        { texto: 'Trailer 5-35 publicado y rentado', peso: 3, estado: 'pendiente' },
+        { texto: 'Trailers 256 y 804 con mantenimiento para renta', peso: 2, estado: 'pendiente' },
+        { texto: 'Truck 1117 vendido por $8,000 — capital de trabajo (21 jul) ✅', peso: 1, estado: 'completado' },
       ]
     },
     {
@@ -1150,33 +1151,35 @@ const DATA = {
       tipo: 'semaforo',
       valor: null,
       semaforo: 'amarillo',
-      meta: 'Ingreso neto positivo con margen real — cashflow ≥ $9,500/mes netos',
-      tendencia: '→',
-      ultimaActualizacion: '2026-05-23',
-      proximaAccion: 'Cashflow actual ~$5,034/mes. Meta: $15,000. Brecha: $9,966. Colchón: $0 (meta $5k–$8k).',
-      historialSemaforo: ['rojo', 'rojo', 'amarillo', 'amarillo'],
+      meta: 'Ingreso neto positivo con margen real — cashflow ≥ $9,500/mes netos + colchón $5,000–$8,000',
+      tendencia: '↑',
+      ultimaActualizacion: '2026-07-26',
+      proximaAccion: 'Cobrar los $12,848 del pipeline (PODs a Summar). Con eso + los $8,000 de la venta del 1117, el colchón de $5–8k por fin es alcanzable este mes.',
+      historialSemaforo: ['rojo', 'amarillo', 'amarillo', 'amarillo'],
       detalle: {
-        'Ingresos/mes': '~$5,034',
-        'Ernesto (10% + seguro)': '~$2,534',
-        'Jesús (Truck 02)': '~$2,500 est.',
-        'Neto estimado': '~$200–$500',
-        'Colchón acumulado': '$0 (meta: $5,000–$8,000)',
-        'Sueldo Jesús': '$1,500/viernes (desde 19 mayo)',
+        'Cierre mayo (caja real)': 'Neto −$6,471 · saldo BofA $2,623',
+        'Bruto cargas junio': '$15,070 (neto $13,593)',
+        'Bruto julio al 26': '$11,148 (neto sin gastos registrados)',
+        'Venta Truck 1117 (21 jul)': '+$8,000 capital de trabajo',
+        'Sin cobrar ⚠️': '$12,848 en 6 cargas (5 en Booked + 1 entregada hace 47 días)',
+        'Rentas pasivas': '$500/mes Edwin ✅ · $1,000/mes Safe Transport en cierre',
+        'Combustible + gastos jun–jul': '$1,817 Mudflap + $798 operativos (Truck 02)',
+        'Colchón': 'Meta $5,000–$8,000 — por confirmar saldo actual BofA',
       }
     },
     {
       id: 'oos',
       nombre: 'OOs + Trailers Activos',
       tipo: 'proyecto',
-      valor: 0,
+      valor: 22,
       semaforo: 'rojo',
-      meta: '5 OOs firmados y activos con equipo Kappa bajo autoridad Kappa',
+      meta: '5 OOs firmados y activos bajo autoridad Kappa',
       tendencia: '→',
-      ultimaActualizacion: '2026-05-26',
-      proximaAccion: '0/5 OOs bajo autoridad Kappa. 0 conversaciones activas en pipeline. Leads del 24 abr sin seguimiento.',
-      historial: [0, 0, 0, 0],
+      ultimaActualizacion: '2026-07-26',
+      proximaAccion: '1/5 — solo Ernesto Iser (equipo propio). Raudel y Liuba no continuaron. Pipeline en cero: sin leads registrados desde abril. La vía es inbound → volver a publicar contenido.',
+      historial: [0, 0, 22, 22],
       subtareas: [
-        { texto: 'OO #1 firmado + activo bajo autoridad Kappa', peso: 5, estado: 'pendiente' },
+        { texto: 'OO #1 — Ernesto Iser activo (Truck 1257 + Trailer 2011 propios)', peso: 5, estado: 'completado' },
         { texto: 'OO #2 firmado + activo', peso: 5, estado: 'pendiente' },
         { texto: 'OO #3 firmado + activo ← meta mínima verde', peso: 5, estado: 'pendiente' },
         { texto: 'OO #4 firmado + activo', peso: 4, estado: 'pendiente' },
@@ -1189,17 +1192,17 @@ const DATA = {
       tipo: 'proyecto',
       valor: 43,
       semaforo: 'amarillo',
-      meta: 'MVP lanzado + validación de mercado (3+ ventas) + números verdes',
-      tendencia: '↑',
-      ultimaActualizacion: '2026-05-26',
-      proximaAccion: 'Kit $37 en Gumroad listo. Decisión pendiente: ¿activar marketing o pausar hasta julio?',
-      historial: [0, 0, 10, 43],
+      meta: 'MVP lanzado + validación de mercado (5 ventas) + números verdes',
+      tendencia: '→',
+      ultimaActualizacion: '2026-07-26',
+      proximaAccion: 'Kit $37 en Gumroad: 0 ventas registradas desde el lanzamiento (24 abr). Sigue pausado por plan — no abrir este frente hasta resolver cobros y chofer.',
+      historial: [0, 10, 43, 43],
       subtareas: [
         { texto: 'Definir el producto MVP (tema, formato, precio)', peso: 3, estado: 'completado' },
         { texto: 'Construir el producto mínimo (9 documentos white-label)', peso: 4, estado: 'completado' },
         { texto: 'Plataforma de venta activa (Gumroad $37)', peso: 3, estado: 'completado' },
         { texto: 'Primera venta confirmada', peso: 4, estado: 'pendiente' },
-        { texto: '3+ ventas — validación de mercado real', peso: 4, estado: 'pendiente' },
+        { texto: '5 ventas — validación de mercado real (meta del vault)', peso: 4, estado: 'pendiente' },
         { texto: 'Ingreso neto del producto en verde', peso: 5, estado: 'pendiente' },
       ]
     },
@@ -1210,15 +1213,15 @@ const DATA = {
       valor: null,
       semaforo: 'rojo',
       meta: '3+ videos/semana publicados con DMs inbound llegando consistentemente',
-      tendencia: '↓',
-      ultimaActualizacion: '2026-05-26',
-      proximaAccion: '2 videos publicados en mayo. Meta: 3+/semana. Publicar 1 video esta semana para cerrar el mes con momentum.',
-      historialSemaforo: ['amarillo', 'rojo', 'rojo', 'amarillo'],
+      tendencia: '→',
+      ultimaActualizacion: '2026-07-26',
+      proximaAccion: 'Sin publicaciones registradas desde mayo. Es la única fuente de OOs y choferes (inbound). 1 video esta semana: la venta del 1117 y la vacante CDL-A son historia real.',
+      historialSemaforo: ['rojo', 'rojo', 'rojo', 'rojo'],
       detalle: {
-        'Videos publicados (mayo)': '2 de 4–6 meta',
-        'DMs inbound esta semana': '0 confirmados',
+        'Último registro': '2 videos en mayo — nada registrado jun–jul',
+        'DMs inbound': '0 registrados',
         'Leads OO activos': '0 conversaciones vivas',
-        'Última publicación': 'Mayo 2026',
+        'Meta': '3+ videos/semana',
         'Plataformas': 'TikTok + Instagram Reels + YouTube Shorts',
       }
     },
@@ -1231,15 +1234,15 @@ const DATA = {
       valor: null,
       semaforo: 'amarillo',
       meta: 'Ingresos > gastos con crecimiento mes a mes',
-      tendencia: '↑',
-      ultimaActualizacion: '2026-05-19',
-      proximaAccion: 'Sueldo $1,500/viernes establecido (KT-46 ✅). Primer mes de separación Kappa/personal.',
-      historialSemaforo: ['rojo', 'rojo', 'rojo', 'amarillo'],
+      tendencia: '→',
+      ultimaActualizacion: '2026-07-26',
+      proximaAccion: 'Sueldo $1,500/viernes activo. Ojo: en mayo los draws ($6,000/mes) fueron una causa del flujo negativo — validar que se sostienen con el neto real de julio.',
+      historialSemaforo: ['rojo', 'amarillo', 'amarillo', 'amarillo'],
       detalle: {
-        'Sueldo fijo': '$1,500/viernes (desde 19 mayo)',
-        'Separación Kappa/personal': 'Completada (KT-46 ✅)',
-        'Gastos personales/mes': 'Por definir (separación reciente)',
-        'Tendencia': 'Primera semana estabilizada',
+        'Sueldo fijo': '$1,500/viernes ($6,000/mes)',
+        'Separación Kappa/personal': 'Sueldo fijo sí — separación total de cuentas aún pendiente (vault 10 jun)',
+        'Riesgo': 'En mayo los draws superaron el neto — flujo −$6,471',
+        'Gastos personales/mes': 'Por definir',
       }
     },
     {
@@ -1309,12 +1312,13 @@ function semClass(s)  { return s; }
 
 function daysOld(dateStr) {
   if (!dateStr) return 999;
-  return Math.floor((Date.now() - new Date(dateStr)) / 86400000);
+  return Math.floor((Date.now() - new Date(dateStr + 'T12:00:00')) / 86400000);
 }
 
 function fmtDate(dateStr) {
   if (!dateStr) return 'Sin datos';
-  return new Date(dateStr).toLocaleDateString('es-ES', { day:'numeric', month:'short', year:'numeric' });
+  // T12:00:00 evita que 'YYYY-MM-DD' se parsee como UTC y se muestre un día antes
+  return new Date(dateStr + 'T12:00:00').toLocaleDateString('es-ES', { day:'numeric', month:'short', year:'numeric' });
 }
 
 function sparkColor(v, tipo) {
@@ -1339,7 +1343,8 @@ function sparkHeight(v, tipo) {
 // ────────────────────────────────────────────
 function renderCard(area, idx, total) {
   const isFullWidth = (total % 2 === 1) && (idx === total - 1);
-  const stale = daysOld(area.ultimaActualizacion) > 14;
+  // Tarjetas 'gris' nunca han tenido datos — el overlay "datos viejos" no aplica
+  const stale = daysOld(area.ultimaActualizacion) > 14 && area.semaforo !== 'gris';
   const sc = semClass(area.semaforo);
 
   // Value block
@@ -1631,10 +1636,13 @@ const SCORECARD_METRICS = [
   { id:'brokers', label:'Brokers aprobados',     who:'Jesús', goal:10,    unit:'',     fmt:'number',   dir:'gte' },
 ];
 
-// Generate 13 rolling week labels ending today
+// Generate 13 week labels ending in la semana del último sync.
+// Ancladas a DATA.lastSync (no a la fecha del navegador): el SEED y las ediciones
+// guardadas (sc_data) están indexados a semanas absolutas — si las etiquetas
+// rodaran con "hoy", todo el histórico se correría de columna al pasar la semana.
 function getWeekLabels() {
   const labels = [];
-  const today = new Date();
+  const today = new Date(DATA.lastSync + 'T12:00:00');
   const dayOfWeek = today.getDay(); // 0=Sun
   // Start of current week (Monday)
   const monday = new Date(today);
@@ -1650,37 +1658,30 @@ function getWeekLabels() {
 }
 
 // ─── SEED DATA — fuentes anotadas ───────────────────────────────────────────
-// Índice de semanas: 0 = más antigua (hace 12 sem) → 12 = semana actual
-//
-// revenue → Notion: Q1 (ene–mar) ~$57k/mes ÷ 4 = ~$14,250/sem (sem 2–6)
-//           Notion: mayo ~$5,034/mes ÷ 4 = ~$1,258/sem (sem 10–12)
-//           Semana 4/10+4/17 = $5,200 confirmado War Room 2026-05-14
-//
-// oos     → Notion: 1 OO activo (Ernesto) toda la historia reciente
-// cash    → Notion: colchón crítico, ~$0 meta, fluctúa semana a semana — EDITAR
-// brokers → Estimado industria — EDITAR con tu número real
-// millas  → Estimado industria trucking FL — EDITAR con tus números reales
-// cpm     → Estimado industria ($1.20–1.50/mi en FL) — EDITAR
-// ar      → Estimado (factoring típico 2–5 días, sin factoring 7–14) — EDITAR
-// cargas  → Estimado (1 truck = 4–5 cargas/sem, +Ernesto ~3) — EDITAR
+// Índice de semanas: 0 = más antigua (lunes 27-abr) → 12 = semana actual (lunes 20-jul)
+// Fuente: Kappa TMS (Notion) › 📦 Cargas — datos REALES, sync 2026-07-26
+// revenue = bruto semanal · millas = millas cargadas · cargas = despachadas
+// Semanas en 0 (18-may, 15-jun, 22-jun, 20-jul): sin cargas registradas en el TMS
+// cpm / ar / brokers: sin datos confiables por semana — celdas vacías, EDITAR a mano
+// cash conocido: $2,623 al cierre de mayo (2-jun) · +$8,000 venta Truck 1117 el 21-jul
 // ─────────────────────────────────────────────────────────────────────────────
 const SCORECARD_SEED = {
-  // Notion: revenue Q1 ~$14,250/sem · caída desde abr cuando Jesús va solo a carretera
-  revenue: { 1:14250, 2:14100, 3:13800, 4:13200, 5:12800, 6:5200, 7:4900, 8:4800, 9:5200, 10:4800, 11:5034, 12:5034 },
-  // Estimado — EDITAR con millas reales de ELD/logs
-  millas:  { 1:2900,  2:2800,  3:2700,  4:2650,  5:2600,  6:1300, 7:1200, 8:1150, 9:1200, 10:1100, 11:1150, 12:1150 },
-  // Estimado industria FL — EDITAR
-  cpm:     { 1:1.14,  2:1.15,  3:1.17,  4:1.18,  5:1.20,  6:1.42, 7:1.45, 8:1.48, 9:1.45, 10:1.50, 11:1.48, 12:1.48 },
-  // Estimado — EDITAR (factoring vs sin factoring)
-  ar:      { 1:4,     2:5,     3:5,     4:6,     5:6,     6:7,    7:8,    8:8,    9:9,    10:9,    11:7,    12:7  },
-  // Notion confirmado: 1 OO activo (Ernesto) todo el período
-  oos:     { 1:1,     2:1,     3:1,     4:1,     5:1,     6:1,    7:1,    8:1,    9:1,    10:1,    11:1,    12:1  },
-  // Estimado (Jesús + Ernesto) — EDITAR con tus despachos reales
-  cargas:  { 1:10,    2:9,     3:9,     4:8,     5:8,     6:4,    7:4,    8:3,    9:4,    10:3,    11:4,    12:4  },
-  // Notion: cash crítico — estimado, EDITAR con balance real BofA
-  cash:    { 1:4500,  2:4200,  3:3800,  4:3100,  5:2800,  6:1500, 7:1200, 8:900,  9:1100, 10:800,  11:1500, 12:1500 },
-  // Estimado — EDITAR con brokers aprobados reales en tu TMS/loadboards
-  brokers: { 1:5,     2:6,     3:6,     4:6,     5:7,     6:7,    7:7,    8:8,    9:8,    10:8,    11:9,    12:9  },
+  // TMS real: bruto por semana de pickup (semana 4 = 25-may fue la mejor: $15,440)
+  revenue: { 0:4100, 1:3840, 2:3678, 3:0, 4:15440, 5:8970, 6:3500, 7:0, 8:0, 9:5543, 10:6125, 11:2080, 12:0 },
+  // TMS real: millas cargadas (semana 11 sin millas registradas — carga 0242948)
+  millas:  { 0:933, 1:662, 2:1568, 3:0, 4:3732, 5:2518, 6:1073, 7:0, 8:0, 9:1562, 10:700, 12:0 },
+  // Sin datos reales por semana — EDITAR con combustible + gastos ÷ millas
+  cpm:     {},
+  // Sin datos reales — EDITAR (ojo: hay 1 carga con 47 días sin cobrar)
+  ar:      {},
+  // TMS confirmado: 1 OO activo (Ernesto Iser) todo el período
+  oos:     { 0:1, 1:1, 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1 },
+  // TMS real: cargas despachadas por semana (canceladas excluidas)
+  cargas:  { 0:3, 1:3, 2:2, 3:0, 4:4, 5:2, 6:2, 7:0, 8:0, 9:2, 10:3, 11:1, 12:0 },
+  // Único saldo confirmado: $2,623 BofA al cierre de mayo — EDITAR con saldo real
+  cash:    { 5:2623 },
+  // Sin dato real — EDITAR con brokers aprobados (usados en el período: CHR, Wel, Plains)
+  brokers: {},
 };
 
 function getScorecardData() {
@@ -1769,39 +1770,47 @@ function handleSCChange(metricId, weekIdx, input) {
   input.value = raw === '' ? '' : fmtSCVal(raw, m.fmt);
 }
 
-// ── ROCKS ── (fuente: Notion › 🪨 Rocks — Prioridades Trimestrales)
+// ── ROCKS ── (fuente: Notion › 🪨 Rocks — Q2 2026 CERRADO · Q3 2026 sin rocks definidas)
 const EOS_ROCKS = [
   {
     "num": 1,
-    "titulo": "2 OOs nuevos activos bajo autoridad Kappa",
+    "titulo": "🪨 KEYSTONE: Salir del asiento del truck",
     "owner": "Jesús",
-    "deadline": "1 Jun 2026",
-    "status": "on-track",
-    "notas": "OOs activos: Ernesto Iser, Raudel Coronado, Liuba El Flaco. Meta: 2 nuevos."
+    "deadline": "30 Jun 2026 — vencida",
+    "status": "off-track",
+    "notas": "Q2 cerró en 0%: sin chofer contratado y sin 2º OO. Sigue siendo la roca madre y se extiende a Q3. Plan vivo: rentar el 27-822, activar el 17-11 en Truck 02 y publicar la vacante CDL-A."
   },
   {
     "num": 2,
-    "titulo": "Contratar chofer para Truck 02",
+    "titulo": "2 OOs nuevos activos bajo autoridad Kappa",
     "owner": "Jesús",
-    "deadline": "30 Jun 2026",
+    "deadline": "1 Jun 2026 — vencida",
     "status": "off-track",
-    "notas": "Truck sin chofer. Jesús manejando actualmente."
+    "notas": "Cerró en 0 nuevos. Único OO activo: Ernesto Iser. Raudel y Liuba no continuaron."
   },
   {
     "num": 3,
-    "titulo": "3 videos/semana consistentes — Marca Personal",
+    "titulo": "Contratar chofer para Truck 02",
     "owner": "Jesús",
-    "deadline": "30 Jun 2026",
-    "status": "on-track",
-    "notas": "2 videos publicados en mayo. Meta: 3/semana consistente."
+    "deadline": "30 Jun 2026 — vencida",
+    "status": "off-track",
+    "notas": "Sin chofer al cierre de Q2 — Jesús sigue manejando. Se reactiva al tener el 17-11 montado en el Truck 02."
   },
   {
     "num": 4,
+    "titulo": "3 videos/semana consistentes — Marca Personal",
+    "owner": "Jesús",
+    "deadline": "30 Jun 2026 — vencida",
+    "status": "off-track",
+    "notas": "2 videos en mayo; sin publicaciones registradas después. La máquina inbound está apagada."
+  },
+  {
+    "num": 5,
     "titulo": "Activar Combinación B — Truck 1117 + Trailer 1711",
     "owner": "Jesús",
     "deadline": "30 Jun 2026",
-    "status": "on-track",
-    "notas": "Truck en taller Fase 2. Trailer mantenimiento pendiente."
+    "status": "done",
+    "notas": "OBSOLETA — resuelta por otra vía: Truck 1117 VENDIDO el 21 jul por $8,000 (capital de trabajo). El Trailer 17-11 se reasigna al Truck 02."
   }
 ];
 
@@ -1825,46 +1834,64 @@ function renderRocks() {
     </div>`).join('');
 }
 
-// ── ISSUES ── (fuente: Notion › 🔥 Issues — IDS)
+// ── ISSUES ── (fuente: Notion › 🔥 Issues — IDS + sync TMS 2026-07-26)
 const EOS_ISSUES = [
   {
-    "desc": "Cash buffer < $5,000 — operación en riesgo ante imprevisto",
+    "desc": "6 cargas sin cobrar — $12,848 bruto (5 estancadas en Booked + 1 entregada hace 47 días sin POD)",
+    "priority": "alta",
+    "fecha": "Jul 2026",
+    "status": "abierto"
+  },
+  {
+    "desc": "Truck 02 sin chofer — Jesús sigue en el asiento",
+    "priority": "alta",
+    "fecha": "May 2026",
+    "status": "abierto"
+  },
+  {
+    "desc": "Cash buffer < $5,000 — la venta del 1117 aportó $8,000; confirmar saldo y apartar el colchón",
     "priority": "alta",
     "fecha": "May 2026",
     "status": "en-proceso"
   },
   {
-    "desc": "Truck 02 sin chofer — sin ingreso de ese truck",
+    "desc": "Renta Trailer 27-822 (Safe Transport, $1,000/mes + $1,000 depósito) — contrato listo desde el 30 may, sin cerrar",
     "priority": "alta",
-    "fecha": "May 2026",
+    "fecha": "Jun 2026",
+    "status": "en-proceso"
+  },
+  {
+    "desc": "Activar Trailer 17-11 en Truck 02 — reemplazo del 27-822 (3–4 días)",
+    "priority": "media",
+    "fecha": "Jul 2026",
     "status": "abierto"
   },
   {
-    "desc": "Trailer 1711 — mantenimiento pendiente (Día 18 ❌)",
-    "priority": "alta",
-    "fecha": "May 2026",
+    "desc": "Q3 2026 sin Rocks definidas — 4 semanas de trimestre sin prioridades en Notion",
+    "priority": "media",
+    "fecha": "Jul 2026",
     "status": "abierto"
   },
   {
-    "desc": "Sin chofer para Truck 1117 al salir del taller",
+    "desc": "Trailer 5-35 sin publicar en Facebook — renta pasiva perdida (copy listo en Notion)",
     "priority": "media",
     "fecha": "May 2026",
     "status": "abierto"
   },
   {
-    "desc": "Trailer 5-35 sin publicar en Facebook — renta pasiva perdida",
+    "desc": "Seguro Progressive — renovación 20 oct; comparar cotizaciones en agosto",
     "priority": "media",
     "fecha": "May 2026",
     "status": "abierto"
   },
   {
-    "desc": "Seguro Progressive — renovación Oct 20, 2026",
+    "desc": "TMS sin mantenimiento: cargas de julio sin camión/gastos, semana del 20 jul vacía, vencimientos de compliance sin cargar",
     "priority": "media",
-    "fecha": "May 2026",
+    "fecha": "Jul 2026",
     "status": "abierto"
   },
   {
-    "desc": "Amazon Relay — cargas activas pendiente de maximizar",
+    "desc": "Amazon Relay — elegible desde mayo, sin cargas registradas por ese canal",
     "priority": "baja",
     "fecha": "May 2026",
     "status": "abierto"

@@ -18,7 +18,7 @@ NOTION_TOKEN = os.environ.get("NOTION_TOKEN", "")  # export NOTION_TOKEN=secret_
 # IDs de las bases de datos (ya creadas en Notion)
 DB_ROCKS   = "1809896607c8426e9209f615fa4e11ee"
 DB_ISSUES  = "aa154cb6e36143069cb455114e7ed77b"
-DB_FLOTA   = "2facdb6122b9408d9938f4261760401f"
+DB_FLOTA   = "2facdb6122b9408d9938f4261760401f"  # usar este ID directo, no el collection ID
 DB_OOS     = "bb2a81214910492b9adbb525b6978bdc"
 DB_SCORECARD = "52a416dba38044cb91935d1e0ac8db23"
 
